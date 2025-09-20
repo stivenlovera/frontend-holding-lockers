@@ -13,6 +13,13 @@
         <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
             <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
             <messages></messages>
+            <shortcuts></shortcuts>
+            <button mat-menu-item (click)="signOut()">
+                <mat-icon
+                    [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
+                ></mat-icon>
+                <span>Sign out</span>
+            </button>
         </div>
     </div>
 

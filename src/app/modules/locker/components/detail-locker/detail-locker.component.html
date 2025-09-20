@@ -1,0 +1,17 @@
+<div class="border rounded-2xl p-4">
+  <div
+    class="grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4"
+  >
+    <div class="flex">
+      <div [class]="'w-15 h-5 border ' + ColorAvailable"></div>
+      <p class="pl-2">Disponible</p>
+    </div>
+    <div class="flex">
+      <div [class]="'w-15 h-5 border ' + ColorNoAvailable"></div>
+      <p class="pl-2">No disponible</p>
+    </div>
+    <div class="col-span-2">
+        Dirrecion : {{locker().address}}
+    </div>
+  </div>
+</div>

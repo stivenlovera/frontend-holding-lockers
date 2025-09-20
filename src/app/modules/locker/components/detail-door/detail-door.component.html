@@ -1,0 +1,33 @@
+<div class="border rounded-2xl p-4">
+  <div class="grid xs:grid-cols-1 gap-2">
+    <div class="">Detalle de casillero</div>
+  </div>
+  <hr class="border my-4" />
+  @if (selected().selected) {
+  <div
+    class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-4"
+  >
+    <div>Numero</div>
+    <div class="lg:col-span-2 xl:col-span-2">
+      {{ this.locker().doors[this.selected().index].number }}
+    </div>
+    <div>Tamaño</div>
+    <div class="lg:col-span-2 xl:col-span-2">
+      {{ this.locker().doors[this.selected().index].name_size }}
+    </div>
+    <div>Estado</div>
+    <div class="lg:col-span-2 xl:col-span-2">
+      <!-- {{ this.locker().doors[this.selected().index].state }} -->
+      {{getStatus(this.locker().doors[this.selected().index].state )}}
+    </div>
+    <div>Fecha</div>
+    <div class="lg:col-span-2 xl:col-span-2">esta libre</div>
+  </div> 
+  } @else {
+  <div
+    class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-4"
+  >
+    Seleccione un casillero
+  </div>
+  }
+</div>

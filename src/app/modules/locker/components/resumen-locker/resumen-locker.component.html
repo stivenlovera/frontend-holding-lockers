@@ -1,0 +1,9 @@
+<div class="border rounded-2xl p-4">
+  <div
+    class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-4"
+  >
+    <div class="">casilleros libres {{ resume().available }}</div>
+    <div class="">casilleros ocupados {{ resume().NoAvailable }}</div>
+    <div class="">casilleros {{ resume().total }}</div>
+  </div>
+</div>

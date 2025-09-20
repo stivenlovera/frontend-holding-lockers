@@ -54,8 +54,8 @@ export class AuthSignInComponent implements OnInit
     {
         // Create the form
         this.signInForm = this._formBuilder.group({
-            email     : ['hughes.brian@company.com', [Validators.required, Validators.email]],
-            password  : ['admin', Validators.required],
+            email     : ['stivenlovera@gmail.com', [Validators.required, Validators.email]],
+            password  : ['123456789', Validators.required],
             rememberMe: [''],
         });
     }
@@ -81,6 +81,7 @@ export class AuthSignInComponent implements OnInit
         // Hide the alert
         this.showAlert = false;
 
+        console.log(this.signInForm.value)
         // Sign in
         this._authService.signIn(this.signInForm.value)
             .subscribe(

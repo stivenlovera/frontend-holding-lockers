@@ -70,15 +70,14 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
-
-           // Dashboards
-            {path: 'dashboards', children: [
-                {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.routes')},
-            ]},
-
-            // 404 & Catch all
+            {
+                path: 'dashboard', loadChildren: () => import('app/modules/dashboard/dashboard.routes'),
+            },
+            {
+                path: 'locker', loadChildren: () => import('app/modules/locker/locker.routes'),
+            },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }
         ]
-    }
+    },
 ];

@@ -125,4 +125,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             navigation.toggle();
         }
     }
+    
+    signOut(): void
+    {
+        this._router.navigate(['/sign-out']);
+    }
 }
