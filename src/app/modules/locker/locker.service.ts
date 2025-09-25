@@ -3,7 +3,7 @@ import { IResponse } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment.development';
-import { ILocker } from './locker.types';
+import { ILocker, StatusInfoProp } from './locker.types';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,9 @@ export class LockerService {
     private _httpClient: HttpClient
   ) { }
 
-  public getLockerStatus(locker_id: number): Observable<IResponse<ILocker>> {
+  public getLockerStatus(locker_id: number): Observable<IResponse<StatusInfoProp>> {
     const response = this._httpClient
-      .post<IResponse<ILocker>>(
+      .post<IResponse<StatusInfoProp>>(
         `${environment.apiUrl}/locker/get-status`,
         { locker_id }
       );

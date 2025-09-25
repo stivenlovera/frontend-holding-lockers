@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { DiagramLockerComponent } from "../../components/diagram-locker/diagram-locker.component";
-import { DetailLockerComponent } from "../../components/detail-locker/detail-locker.component";
-import { ResumenLockerComponent } from "../../components/resumen-locker/resumen-locker.component";
 import { DetailDoorComponent } from "../../components/detail-door/detail-door.component";
-import { ILocker, initializeStateResumelocker, initialStateSelected, inizializeStateLocker, ResumelockerProp, SelectedProp } from '../../locker.types';
+import { colorDoor, ILocker, initializeStateResumelocker, initialStateSelected, inizializeStateLocker, inizializeStateStatusInfoProp, ResumelockerProp, SelectedProp, StatusInfoProp } from '../../locker.types';
 import { LockerService } from '../../locker.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'status-locker',
   standalone: true,
-  imports: [DiagramLockerComponent, DetailLockerComponent, ResumenLockerComponent, DetailDoorComponent],
+  imports: [DiagramLockerComponent, RouterLink, DetailDoorComponent, MatIcon],
   templateUrl: './status-locker.component.html',
   styleUrl: './status-locker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusLockerComponent implements OnInit {
-  locker = signal<ILocker>(inizializeStateLocker)
+  lockerId = parseInt(this._route.snapshot.paramMap.get('id')!);
+  colorDoor = colorDoor
+  statusInfo = signal<StatusInfoProp>(inizializeStateStatusInfoProp)
   selected = signal<SelectedProp>(initialStateSelected)
   resume = signal<ResumelockerProp>(initializeStateResumelocker)
-  lockerId: number | null = null;
 
   constructor(
     private _lockerService: LockerService,
@@ -30,12 +30,9 @@ export class StatusLockerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('init')
-    this.lockerId = parseInt(this._route.snapshot.paramMap.get('id')!);
     this._lockerService.getLockerStatus(this.lockerId).pipe(take(1)).subscribe(
       (res) => {
-        console.log(res.data)
-        this.locker.set(res.data)
+        this.statusInfo.set(res.data)
         this.getResumenLocker()
       }
     )
@@ -46,9 +43,9 @@ export class StatusLockerComponent implements OnInit {
   }
 
   getResumenLocker() {
-    const available = this.locker().doors.filter(door => door.state === 1).length
-    const noAvailable = this.locker().doors.filter(door => door.state === 0).length
-    const total = this.locker().doors.length
+    const available = this.statusInfo().locker.doors.filter(door => door.state === 1).length
+    const noAvailable = this.statusInfo().locker.doors.filter(door => door.state === 0).length
+    const total = this.statusInfo().locker.doors.length
     this.resume.set({
       available: available,
       NoAvailable: noAvailable,

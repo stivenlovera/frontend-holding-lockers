@@ -6,8 +6,3 @@ export interface IResponse<T> {
     message: string;
   }
 }
-
-export interface ISort {
-  active: string
-  direction: string
-}

@@ -76,6 +76,12 @@ export const appRoutes: Route[] = [
             {
                 path: 'locker', loadChildren: () => import('app/modules/locker/locker.routes'),
             },
+            {
+                path: 'movement', loadChildren: () => import('app/modules/movement/movement.routes'),
+            },
+             {
+                path: 'department', loadChildren: () => import('app/modules/department/department.routes'),
+            },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }
         ]

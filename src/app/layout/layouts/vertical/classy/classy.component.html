@@ -8,18 +8,40 @@
         class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden"
     >
         <!-- Navigation toggle button -->
-        <div class="text-3xl font-bold">Lock App</div>
+        <a
+            class="text-3xl font-extrabold leading-none"
+            [routerLink]="'/dashboard'"
+        >
+            Lock App
+        </a>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
             <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
             <messages></messages>
             <shortcuts></shortcuts>
-            <button mat-menu-item (click)="signOut()">
-                <mat-icon
-                    [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
-                ></mat-icon>
-                <span>Sign out</span>
+            <button mat-icon-button [matMenuTriggerFor]="menuUser">
+                <mat-icon svgIcon="heroicons_outline:user-circle"></mat-icon>
             </button>
+            <mat-menu #menuUser="matMenu">
+                <button mat-menu-item>
+                    <span class="flex items-center">
+                        <mat-icon
+                            class="icon-size-5 mr-3"
+                            [svgIcon]="'heroicons_solid:user-circle'"
+                        ></mat-icon>
+                        <span>User test</span>
+                    </span>
+                </button>
+                <button mat-menu-item (click)="signOut()">
+                    <span class="flex items-center">
+                        <mat-icon
+                            class="icon-size-5 mr-3"
+                            [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
+                        ></mat-icon>
+                        <span>Cerrar session</span>
+                    </span>
+                </button>
+            </mat-menu>
         </div>
     </div>
 
@@ -31,7 +53,11 @@
     </div>
 
     <!-- Footer -->
-    <!--<div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
-        <span class="font-medium text-secondary">Fuse &copy; {{currentYear}}</span>
-    </div>-->
+    <div
+        class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden"
+    >
+        <span class="font-medium text-secondary"
+            >Lock App &copy; {{ currentYear }}</span
+        >
+    </div>
 </div>

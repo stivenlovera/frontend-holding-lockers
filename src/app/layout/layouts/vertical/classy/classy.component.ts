@@ -19,13 +19,32 @@ import { SearchComponent } from 'app/layout/common/search/search.component';
 import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { MatMenu, MatMenuModule } from "@angular/material/menu";
+
 
 @Component({
     selector     : 'classy-layout',
     templateUrl  : './classy.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone   : true,
-    imports      : [FuseLoadingBarComponent, FuseVerticalNavigationComponent, NotificationsComponent, UserComponent, NgIf, MatIconModule, MatButtonModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, RouterOutlet, QuickChatComponent],
+    imports: [
+        FuseLoadingBarComponent,
+         FuseVerticalNavigationComponent, 
+         NotificationsComponent, 
+         UserComponent, 
+         NgIf,
+          MatIconModule, 
+          MatButtonModule, 
+          LanguagesComponent, 
+          FuseFullscreenComponent, 
+          SearchComponent, 
+          ShortcutsComponent, 
+          MessagesComponent, 
+          RouterOutlet,
+           QuickChatComponent, 
+           RouterLink, 
+           MatMenuModule],
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy
 {

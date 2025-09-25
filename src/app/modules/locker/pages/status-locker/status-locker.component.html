@@ -1,33 +1,155 @@
 <div
-  class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 xl:grid-cols-4"
+    class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent"
 >
-  <div
-    class="xs:col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-4 xl:col-span-4"
-  >
-    Locker 555
-  </div>
-  <div
-    class="xs:col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2  p-4 flex items-center justify-center text-sm"
-  >
-    <!-- <diagram-locker
-      [locker]="locker()"
-      (onSelected)="handlerSeleted($event)"
-    ></diagram-locker> -->
-  </div>
-  <div
-    class="xs:col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 col-span-2 p-4 text-sm"
-  >
-    <div class="grid grid-cols-1 gap-4">
-      <!-- <detail-locker [locker]="locker()"></detail-locker>
-      <resumen-locker [locker]="locker()" [resume]="resume()"></resumen-locker>
-      <detail-door [locker]="locker()" [selected]="selected()"></detail-door> -->
+    <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap items-center font-medium">
+            <div>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="'/dashboard'"
+                    >Dashboard</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                <a class="ml-1 text-slate-900">Locker</a>
+            </div>
+        </div>
+        <div class="mt-2">
+            <h2
+                class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+            >
+                Locker
+            </h2>
+        </div>
     </div>
-  </div>
-  <div
-    class="xs:col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-4 xl:col-span-4 col-span-2 pt-5 text-sm"
-  >
-    <!-- <seccion-data-table [description]="'Movimientos'" [filter]="true">
-      <datatable-locker></datatable-locker>
-    </seccion-data-table> -->
-  </div>
+</div>
+
+<div
+    class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4"
+>
+    <div
+        class="xs:col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 p-4 flex items-center justify-center text-sm"
+    >
+        <div class="p-6 shadow rounded-2xl bg-card">
+            <diagram-locker
+                [locker]="statusInfo().locker"
+                (onSelected)="handlerSeleted($event)"
+            ></diagram-locker>
+        </div>
+    </div>
+    <div
+        class="xs:col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 col-span-2 p-4 text-sm"
+    >
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow">
+                <div class="flex items-center">
+                    <div class="flex flex-col">
+                        <div
+                            class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
+                        >
+                            {{ statusInfo().locker.name }}
+                        </div>
+                        <div class="text-secondary font-medium">
+                            {{ statusInfo().locker.address }}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-4 space-y-4">
+                    <div class="flex flex-col">
+                        <div class="flex items-center">
+                            <div
+                                [class]="
+                                    'flex items-center justify-center w-14 h-10 rounded ' +
+                                    colorDoor.available +
+                                    ' text-red-800 dark:bg-red-600 dark:text-red-50'
+                                "
+                            ></div>
+                            <div class="flex-auto ml-4 leading-none">
+                                <div class="text-sm font-medium text-secondary">
+                                    Disponible
+                                </div>
+                                <div class="mt-1 font-medium text-2xl">
+                                    {{ resume().available }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center">
+                            <div
+                                [class]="
+                                    'flex items-center justify-center w-14 h-10 rounded ' +
+                                    colorDoor.notAvailable +
+                                    ' text-red-800 dark:bg-red-600 dark:text-red-50'
+                                "
+                            ></div>
+                            <div class="flex-auto ml-4 leading-none">
+                                <div class="text-sm font-medium text-secondary">
+                                    No disponible
+                                </div>
+                                <div class="mt-1 font-medium text-2xl">
+                                    {{ resume().NoAvailable }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mt-auto">
+                    <button class="mt-2" mat-stroked-button>
+                        Total casilleros {{ resume().total }}
+                    </button>
+                </div>
+            </div>
+            <div class="p-6 shadow rounded-2xl bg-card">
+                <div class="flex flex-col">
+                    <div class="font-medium text-secondary">Registro</div>
+                    <div class="flex-auto grid grid-cols-4 gap-4 mt-6">
+                        <!-- New issues -->
+                        <a
+                            class="col-span-2 flex flex-col items-center justify-center py-8 px-1 rounded-2xl bg-indigo-50 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"
+                            [routerLink]="[
+                                '/department/' + statusInfo().locker.locker_id
+                            ]"
+                        >
+                            <div
+                                class="text-5xl sm:text-7xl font-semibold leading-none tracking-tight"
+                            >
+                                {{ statusInfo().depataments.length }}
+                            </div>
+                            <div class="mt-1 text-sm sm:text-lg font-medium">
+                                Departamentos
+                            </div>
+                        </a>
+                        <!-- Closed -->
+                        <a
+                            class="col-span-2 flex flex-col items-center justify-center py-8 px-1 rounded-2xl bg-indigo-50 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"
+                            [routerLink]="[
+                                '/movement/' + statusInfo().locker.locker_id
+                            ]"
+                        >
+                            <div
+                                class="text-5xl sm:text-7xl font-semibold leading-none tracking-tight"
+                            >
+                                {{ statusInfo().movements.length }}
+                            </div>
+                            <div class="mt-1 text-sm sm:text-lg font-medium">
+                                Movimientos
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- <detail-locker [locker]="locker()"></detail-locker> -->
+            </div>
+            <div class="col-span-2">
+                <detail-door
+                    [locker]="statusInfo().locker"
+                    [selected]="selected()"
+                ></detail-door>
+            </div>
+        </div>
+    </div>
 </div>

@@ -3,6 +3,7 @@ export interface ILocker {
     client_id: number
     macAdd: string
     address: string
+    name: string
     state: number
     doors: IDoor[]
 }
@@ -23,10 +24,13 @@ export const sizeDoor = {
     small: 10,
     medium: 20
 }
-
-export const colorDoor = {
-    available: 'bg-neutral-500',
-    notAvailable: 'bg-emerald-800'
+export interface IColorDoor {
+    available: string
+    notAvailable: string
+}
+export const colorDoor: IColorDoor = {
+    available: 'bg-green-200',
+    notAvailable: 'bg-red-600'
 }
 
 export const inizializeStateLocker: ILocker = {
@@ -34,6 +38,7 @@ export const inizializeStateLocker: ILocker = {
     client_id: -1,
     macAdd: "",
     address: "",
+    name: "",
     state: -1,
     doors: []
 }
@@ -58,4 +63,47 @@ export const initializeStateResumelocker: ResumelockerProp = {
     available: 0,
     NoAvailable: 0,
     total: 0
+}
+
+export interface IDepartament {
+    department_id: number
+    client_id: number
+    name: string
+    state: number
+    create_at?: string
+    update_at?: string
+}
+
+export interface StatusInfoProp {
+    locker: ILocker
+    depataments: IDepartament[]
+    movements: IMovement[]
+}
+
+export const inizializeStateStatusInfoProp: StatusInfoProp = {
+    locker: {
+        locker_id: 0,
+        client_id: 0,
+        macAdd: "",
+        address: "",
+        name: "",
+        state: 0,
+        doors: []
+    },
+    depataments: [],
+    movements: []
+}
+
+export interface IMovement {
+    movement_id: number
+    door_id: number
+    department_id: number
+    client_id: number
+    code: string
+    type_movement_id: number
+    id_ref: string
+    status_notificate: number
+    status_integrate: number
+    create_at?: string
+    update_at?: string
 }
