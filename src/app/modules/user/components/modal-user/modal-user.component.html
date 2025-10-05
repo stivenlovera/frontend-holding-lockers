@@ -1,0 +1,113 @@
+<div mat-dialog-title class="dialog-title flex justify-between">
+    <div class="text-2xl w-full mt-2 m-0 font-medium">{{ data.name }}</div>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+    </button>
+</div>
+<form [formGroup]="formUser">
+    <mat-dialog-content class="mat-typography">
+        <div
+            class="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2"
+        >
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Nombre completo</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Nombre completo'"
+                        [formControlName]="'name'"
+                    />
+                    @if (formUser.get('name')?.hasError('required')) {
+                    <mat-error>Nombre requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Celular</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Celular'"
+                        [formControlName]="'celular'"
+                    />
+                    @if (formUser.get('celular')?.hasError('required')) {
+                    <mat-error>Celular requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Email</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Email'"
+                        [formControlName]="'email'"
+                    />
+                    @if (formUser.get('email')?.hasError('required')) {
+                    <mat-error>Email requerido</mat-error>
+                    } @if (formUser.get('email')?.hasError('email')) {
+                    <mat-error>Debe se un email</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Roles</mat-label>
+                    <mat-select
+                        [multiple]="true"
+                        [placeholder]="'roles'"
+                        [formControlName]="'roles'"
+                    >
+                        @for (rol of roles(); track $index) {
+                        <mat-option [value]="rol.rol_id">{{
+                            rol.name
+                        }}</mat-option>
+                        }
+                    </mat-select>
+                    @if (formUser.get('roles')?.hasError('required')) {
+                    <mat-error>Roles es requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            @if (data.edit) {
+            <div class="col-span-2">
+                <label class="text-neutral-900">Resetear contraseña</label>
+                <br class="" />
+                <div class="py-2">
+                    <mat-slide-toggle
+                        class="example-margin"
+                        [formControlName]="'reset_password'"
+                        (change)="handlerChangeResetPassword()"
+                    >
+                        Resetear contraseña
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            } @if(formUser.get('reset_password').value===true){
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Contraseña</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Contraseña'"
+                        [formControlName]="'password'"
+                    />
+                    @if (formUser.get('password')?.hasError('required')) {
+                    <mat-error>Contraseña es requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            }
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="flex justify-end">
+        <button
+            mat-flat-button
+            color="primary"
+            cdkFocusInitial
+            (click)="handlerSubmit()"
+        >
+            Guardar
+        </button>
+    </mat-dialog-actions>
+</form>

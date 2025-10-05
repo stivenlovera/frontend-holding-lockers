@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import { environment } from 'environments/environment';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -58,7 +59,7 @@ export class AuthService {
             return throwError('User is already logged in.');
         }
 
-        return this._httpClient.post('http://localhost/locker_app_web/public/api/auth', credentials).pipe(
+        return this._httpClient.post(`${environment.apiUrl}/auth`, credentials).pipe(
             switchMap((response: any) => {
                 console.log(response)
                 // Store the access token in the local storage
@@ -68,7 +69,7 @@ export class AuthService {
                 this._authenticated = true;
 
                 // Store the user on the user service
-                this._userService.user = response.data.user;
+                this._userService.user = response.data;
 
                 // Return a new observable with the response
                 return of(response);
@@ -80,8 +81,9 @@ export class AuthService {
      * Sign in using the access token
      */
     signInUsingToken(): Observable<any> {
+        console.log('signInUsingToken')
         // Sign in using the token
-        return this._httpClient.get('http://localhost/locker_app_web/public/api/auth', {
+        return this._httpClient.get(`${environment.apiUrl}/auth`, {
         }).pipe(
             catchError(() =>
 
@@ -104,8 +106,7 @@ export class AuthService {
                 this._authenticated = true;
 
                 // Store the user on the user service
-                this._userService.user = response.user;
-
+                this._userService.user = response.data;
                 // Return true
                 return of(true);
             }),
@@ -151,13 +152,11 @@ export class AuthService {
 
         // Check if the user is logged in
         if (this._authenticated) {
-            console.log('_authenticated ')
             return of(true);
         }
 
         // Check the access token availability
         if (!this.accessToken) {
-            console.log('accessToken ')
             return of(false);
         }
 

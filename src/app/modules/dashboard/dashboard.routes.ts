@@ -5,5 +5,5 @@ export default [
     {
         path: '',
         component: IndexComponent,
-    },
+    }
 ] as Routes;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IResponse, ISort } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment.development';
+import { environment } from 'environments/environment';
 import { IDataTableMovement } from './movement.type';
 import { IPagination } from 'app/shared/paginator.traslate';
 

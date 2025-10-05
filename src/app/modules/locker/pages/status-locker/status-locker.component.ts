@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { DiagramLockerComponent } from "../../components/diagram-locker/diagram-locker.component";
 import { DetailDoorComponent } from "../../components/detail-door/detail-door.component";
-import { colorDoor, ILocker, initializeStateResumelocker, initialStateSelected, inizializeStateLocker, inizializeStateStatusInfoProp, ResumelockerProp, SelectedProp, StatusInfoProp } from '../../locker.types';
+import { colorDoor,  initializeStateResumelocker, initialStateSelected, inizializeStateLocker, inizializeStateStatusInfoProp, ResumelockerProp, SelectedProp, StatusInfoProp } from '../../locker.types';
 import { LockerService } from '../../locker.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { take } from 'rxjs';

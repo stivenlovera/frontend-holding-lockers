@@ -1,5 +1,15 @@
+import { initialPagination, IPagination } from "app/shared/paginator.traslate"
+import { ISort } from "app/utils/util.types"
+
+export interface IUserCard {
+    id: number
+    name: string
+    email: string
+    celular: string
+}
 export interface CardLockerProps {
     lockers: Locker[]
+    users: IUserCard[]
 }
 
 export interface Locker {
@@ -19,10 +29,23 @@ export interface Door {
     state: number
 }
 
-export interface CardLockerProps {
-    lockers: Locker[]
+export const inizializeStateCardLockerProps: CardLockerProps = {
+    lockers: [],
+    users: []
 }
 
-export const inizializeStateCardLockerProps: CardLockerProps = {
-    lockers: []
+export interface ITypeLocker {
+    create_at: string
+    description: string
+    name: string
+    type_locker_id: -1
 }
+
+export interface IRequerimentLocker {
+    type_lockers: ITypeLocker[]
+}
+
+export const requerimentLocker: IRequerimentLocker = {
+    type_lockers: []
+}
+

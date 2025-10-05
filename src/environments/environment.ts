@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
-    staging: true,
-    apiUrl: 'https://lock-app.boliviasoft.com/api',
+    production: true,
+    staging: false,
+    apiUrl: 'https://api-locker.holding-lockers.com/api',
 };

@@ -1,0 +1,129 @@
+<div mat-dialog-title class="dialog-title flex justify-between">
+    <div class="text-2xl w-full mt-2 m-0 font-medium">{{ data.name }}</div>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+    </button>
+</div>
+<form [formGroup]="formDoor">
+    <mat-dialog-content class="mat-typography">
+        <div
+            class="grid sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2"
+        >
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Nombre de casillero</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Nombre de casillero'"
+                        [formControlName]="'name'"
+                    />
+                    @if (formDoor.get('name')?.hasError('required')) {
+                    <mat-error>Nombre requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Tamaño</mat-label>
+                    <mat-select
+                        [placeholder]="'Tipo'"
+                        [formControlName]="'door_size_id'"
+                    >
+                        @for (door_size of door_sizes(); track $index) {
+                        <mat-option [value]="door_size.door_size_id">{{
+                            door_size.name
+                        }}</mat-option>
+                        }
+                    </mat-select>
+                    @if (formDoor.get('door_size_id')?.hasError('required')) {
+                    <mat-error>Tamaño es requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Orden</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Orden'"
+                        [formControlName]="'order'"
+                    />
+                    @if (formDoor.get('order')?.hasError('required')) {
+                    <mat-error>Orden requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Controlador</mat-label>
+                    <mat-select
+                        [placeholder]="'Controlador'"
+                        [formControlName]="'controller_id'"
+                    >
+                        @for (controller of controllers(); track $index) {
+                        <mat-option [value]="controller.controller_id">{{
+                            controller.name
+                        }}</mat-option>
+                        }
+                    </mat-select>
+                    @if (formDoor.get('controller_id')?.hasError('required'))
+                    {
+                    <mat-error>Controlador es requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Estado</mat-label>
+                    <mat-select
+                        [placeholder]="'Estado'"
+                        [formControlName]="'state'"
+                    >
+                        <mat-option [value]="1">Habilitado</mat-option>
+                        <mat-option [value]="0">Desabilitado</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-span-3">
+                <div>
+                    <p class="text-lg font-medium text-neutral-700">Comandos</p>
+                    <p class="text-secondary mb-6">
+                        Gestione codigos de con el dispositivo  
+                    </p>
+                </div>
+                <button
+                    mat-flat-button
+                    color="primary"
+                    cdkFocusInitial
+                    type="button"
+                >
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_outline:plus'"
+                    ></mat-icon>
+                    <span class="ml-2">Añadir Comandos</span>
+                </button>
+            </div>
+
+            <!--  <div class="sm:pt-7 md:pt-7 lg:pt-7 xl:pt-7 text-end">
+            <button mat-flat-button [color]="'primary'" class="" type="button">
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_outline:cog-8-tooth'"
+                ></mat-icon>
+            </button>
+        </div> -->
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="flex justify-end">
+        <button
+            mat-flat-button
+            color="primary"
+            cdkFocusInitial
+            (click)="handlerSubmit()"
+        >
+            Guardar
+        </button>
+    </mat-dialog-actions>
+</form>

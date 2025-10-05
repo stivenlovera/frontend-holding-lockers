@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, EventEmitter, input, Output } from '@angular/core';
-import { colorDoor, ILocker, SelectedProp, sizeDoor } from '../../locker.types';
+import { colorDoor, ILockerProps, SelectedProp, sizeDoor } from '../../locker.types';
 import { MatTooltip, MatTooltipModule } from "@angular/material/tooltip";
 
 @Component({
@@ -14,7 +14,7 @@ import { MatTooltip, MatTooltipModule } from "@angular/material/tooltip";
 })
 export class DiagramLockerComponent {
 
-  locker = input.required<ILocker>()
+  locker = input.required<ILockerProps>()
   @Output() onSelected = new EventEmitter<SelectedProp>();
   constructor() {
     effect(() => {

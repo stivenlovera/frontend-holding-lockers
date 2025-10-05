@@ -1,0 +1,33 @@
+<div
+    class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent"
+>
+    <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap items-center font-medium">
+            <div>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="'/dashboard'"
+                    >Dashboard</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                <a class="ml-1 text-slate-900">Usuarios y roles</a>
+            </div>
+        </div>
+        <div class="mt-2">
+            <h2
+                class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+            >
+                Usuarios y roles
+            </h2>
+        </div>
+    </div>
+</div>
+<data-table-user
+    [dataTableUser]="dataTableUser()"
+    (reloadDataTableUser)="handlerLoadDataTableUser($event)"
+></data-table-user>

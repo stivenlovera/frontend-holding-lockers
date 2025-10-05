@@ -1,0 +1,189 @@
+<form
+    class="flex flex-col px-8 pt-10 bg-card shadow rounded overflow-hidden"
+    [formGroup]="formLocker"
+>
+    <div
+        class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2"
+    >
+        <div class="col-span-2 flex justify-between">
+            <div>
+                <p class="text-lg font-medium">Información sobre Locker</p>
+                <p class="text-secondary mb-6">
+                    Informacion basica acerca del controlador
+                </p>
+            </div>
+        </div>
+        <div>
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Nombre locker</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Nombre locker'"
+                    [formControlName]="'name'"
+                />
+                @if (formLocker.get('name')?.hasError('required')) {
+                    <mat-error>Nombre requerido</mat-error>
+                    }
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Tipo</mat-label>
+                <mat-select
+                    [placeholder]="'Tipo'"
+                    [formControlName]="'type_locker_id'"
+                >
+                    @for (typeLocker of typeLockers(); track $index) {
+                    <mat-option [value]="typeLocker.type_locker_id">{{
+                        typeLocker.name
+                    }}</mat-option>
+                    }
+                </mat-select>
+                 @if (formLocker.get('type_locker_id')?.hasError('required')) {
+                    <mat-error>Tipo locker requerido</mat-error>
+                    }
+            </mat-form-field>
+        </div>
+        <div class="col-span-2">
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Direccion</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Direccion'"
+                    [formControlName]="'address'"
+                />
+                 @if (formLocker.get('address')?.hasError('required')) {
+                    <mat-error>Direccion requerido</mat-error>
+                    }
+            </mat-form-field>
+        </div>
+        <div class="col-span-2">
+            <div
+                class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+            >
+                <!-- <button mat-button>Cancel</button> -->
+                <button
+                    class="px-6 ml-3"
+                    mat-flat-button
+                    [color]="'primary'"
+                    type="button"
+                    (click)="handlerSubmit()"
+                >
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="py-3">
+        <div
+            class="bg-gray-100 border-gray-300 border rounded-md"
+            formArrayName="controllers"
+        >
+            <div class="text-center p-3">No hay controladores</div>
+            @for (controller of formArrayController.controls; track $index) {
+            <div class="p-2">
+                <div
+                    class="w-full relative inline-block border-b-2 border bg-card border-gray-300 rounded-md p-2"
+                >
+                    <a
+                        class="absolute z-20 -top-2 -right-2 w-8 h-8 min-h-8"
+                        mat-icon-button
+                        color="warn"
+                        (click)="handlerCloseController($index)"
+                    >
+                        <mat-icon
+                            class="icon-size-8"
+                            [svgIcon]="'heroicons_solid:x-circle'"
+                        ></mat-icon>
+                    </a>
+                    <div
+                        class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 p-2"
+                    >
+                        <mat-form-field class="w-full">
+                            <mat-label>Nombre controlador</mat-label>
+                            <input
+                                matInput
+                                [placeholder]="'Nombre controlador'"
+                            />
+                        </mat-form-field>
+                        <mat-form-field class="w-full">
+                            <mat-label>Serie</mat-label>
+                            <input matInput [placeholder]="'Serie'" />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+ -->
+    <!-- <mat-divider class="mt-6 mb-10"></mat-divider> -->
+    <!-- <div class="py-3">
+        <div class="bg-gray-100 border-gray-300 border rounded-md">
+            @for (controller of formArrayController.controls; track $index) {
+            <div class="p-2">
+                <div
+                    class="w-full relative inline-block border-b-2 border bg-card border-gray-300 rounded-md p-2"
+                >
+                    <a
+                        class="absolute z-20 -top-2 -right-2 w-8 h-8 min-h-8"
+                        mat-icon-button
+                        color="warn"
+                        (click)="handlerCloseController($index)"
+                    >
+                        <mat-icon
+                            class="icon-size-8"
+                            [svgIcon]="'heroicons_solid:x-circle'"
+                        ></mat-icon>
+                    </a>
+                    <div
+                        class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 p-2"
+                    >
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>Nombre de casillero</mat-label>
+                                <input
+                                    matInput
+                                    [placeholder]="'Nombre de casillero'"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>Tamaño</mat-label>
+                                <input matInput [placeholder]="'Tamaño'" />
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>Orden</mat-label>
+                                <input matInput [placeholder]="'Orden'" />
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>Controlador</mat-label>
+                                <input matInput [placeholder]="'Controlador'" />
+                            </mat-form-field>
+                        </div>
+                        <div class="sm:pt-7 md:pt-7 lg:pt-7 xl:pt-7 text-end">
+                            <button
+                                mat-flat-button
+                                [color]="'primary'"
+                                class=""
+                                type="button"
+                            >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_outline:cog-8-tooth'"
+                                ></mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div> -->
+</form>

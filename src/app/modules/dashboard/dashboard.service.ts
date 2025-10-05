@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IResponse } from 'app/utils/util.types';
+import { IResponse, ISort } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
-import { CardLockerProps } from './dashboard.types';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment.development';
+import { environment } from 'environments/environment';
+import { IPagination } from 'app/shared/paginator.traslate';
+import { IDataTableController } from '../locker/locker.types';
+import { CardLockerProps } from './dashboard.types';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,28 @@ export class DashboardService {
     private _httpClient: HttpClient
   ) { }
 
-   public getDashboardInfo(): Observable<IResponse<CardLockerProps>> {
+  public dataTableController({ length, pageIndex, pageSize }: IPagination, { active, direction }: ISort): Observable<IResponse<IDataTableController>> {
+    const response = this._httpClient
+      .post<IResponse<IDataTableController>>(
+        `${environment.apiUrl}/controller/data-table`,
+        {
+          length,
+          pageIndex,
+          pageSize,
+          active,
+          direction
+        }
+      );
+    return response;
+  }
+
+  public getDashboardInfo(): Observable<IResponse<CardLockerProps>> {
     const response = this._httpClient
       .get<IResponse<CardLockerProps>>(
         `${environment.apiUrl}/dashboard/info`,
       );
     return response;
   }
+
+  
 }

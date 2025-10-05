@@ -1,0 +1,121 @@
+<div class="flex justify-end px-4 py-2 bg-card">
+    <button
+        mat-flat-button
+        [color]="'primary'"
+        class=""
+        type="button"
+        [disabled]="false"
+        (click)="
+            handlerOpenModalUser({
+                edit: false,
+                user_id: -1,
+                name: 'Nuevo User'
+            })
+        "
+    >
+        <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_outline:plus'"
+        ></mat-icon>
+        <span class="ml-2">Nuevo Usuario</span>
+    </button>
+</div>
+<div class="grid border">
+    <div
+        class="movement-grid grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
+        matSort
+        matSortDisableClear
+    >
+        <div
+            class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
+            [mat-sort-header]="'name'"
+            (click)="handleSorts()"
+        >
+            Nombre
+        </div>
+        <div
+            class="hidden xs:hidden sm:block md:block lg:block xl:block"
+            [mat-sort-header]="'email'"
+            (click)="handleSorts()"
+        >
+            Email
+        </div>
+        <div
+            class="hidden xs:hidden sm:block md:block lg:block xl:block"
+            [mat-sort-header]="'celular'"
+            (click)="handleSorts()"
+        >
+            Celular
+        </div>
+        <div
+            class="hidden xs:hidden sm:hidden md:hidden lg:block xl:block"
+            [mat-sort-header]="'roles'"
+            (click)="handleSorts()"
+        >
+            Roles
+        </div>
+
+        <div
+            class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
+        >
+            Acciones
+        </div>
+    </div>
+    <div class="flex flex-auto flex-col overflow-y-auto">
+        @for (user of dataTableUser().users; track $index) {
+        <div
+            class="movement-grid grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 items-center gap-2 py-3 px-6 md:px-8 border-b"
+        >
+            <div
+                class="truncate xs:truncate sm:block md:block lg:block xl:block"
+            >
+                {{ user.name }}
+            </div>
+            <div class="hidden xs:truncate sm:block md:block lg:block xl:block">
+                {{ user.email }}
+            </div>
+            <div class="hidden xs:truncate sm:block md:block lg:block xl:block">
+                {{ user.celular }}
+            </div>
+            <div class="hidden xs:hidden sm:hidden md:block lg:block xl:block">
+                @for (rol of rolesToArray(user.roles ); track $index) {
+                <mat-chip class="mx-1" cdkDrag>{{ rol }}</mat-chip>
+                }
+            </div>
+            <div class="truncate xs:truncate md:block lg:block xl:block">
+                <button
+                    mat-icon-button
+                    (click)="
+                        handlerOpenModalUser({
+                            edit: true,
+                            user_id: user.id,
+                            name: 'Editar User'
+                        })
+                    "
+                >
+                    <mat-icon
+                        svgIcon="heroicons_solid:arrow-top-right-on-square"
+                    ></mat-icon>
+                </button>
+                <button
+                    class="mx-1"
+                    mat-icon-button
+                    [color]="'warn'"
+                    matTooltip="Eliminar"
+                    (click)="handlerOpenDeleteUser(user.id)"
+                >
+                    <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                </button>
+            </div>
+        </div>
+        }
+        <mat-paginator
+            class="bg-gray-50 border-b dark:bg-transparent absolute border-t bottom-0 inset-x-0 z-10"
+            [length]="dataTableUser().paginate.length"
+            [pageIndex]="dataTableUser().paginate.pageIndex"
+            [pageSize]="dataTableUser().paginate.pageSize"
+            [pageSizeOptions]="initialPagination.PageSizeOption"
+            (page)="handlePageEvent($event)"
+        ></mat-paginator>
+    </div>
+</div>

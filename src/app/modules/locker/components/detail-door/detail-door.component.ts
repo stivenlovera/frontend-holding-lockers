@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, EventEmitter, input, Output } from '@angular/core';
-import { IDoor, colorDoor, ILocker, initialStateSelected, SelectedProp } from '../../locker.types';
+import { IDoor, colorDoor, ILockerProps, initialStateSelected, SelectedProp } from '../../locker.types';
 import { MatIcon } from "@angular/material/icon";
 
 @Component({
@@ -12,7 +12,7 @@ import { MatIcon } from "@angular/material/icon";
 })
 export class DetailDoorComponent {
 
-  locker = input.required<ILocker>()
+  locker = input.required<ILockerProps>()
   selected = input.required<SelectedProp>()
   ColorAvailable = colorDoor.available
   ColorNoAvailable = colorDoor.notAvailable

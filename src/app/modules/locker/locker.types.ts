@@ -1,4 +1,7 @@
-export interface ILocker {
+import { initialPagination, IPagination } from "app/shared/paginator.traslate"
+import { ISort } from "app/utils/util.types"
+
+export interface ILockerProps {
     locker_id: number
     client_id: number
     macAdd: string
@@ -12,7 +15,7 @@ export interface IDoor {
     door_id: number
     door_size_id: number
     controller_id: number
-    number: number
+    name: number
     name_size: string
     state: number
     create_at: string
@@ -33,7 +36,7 @@ export const colorDoor: IColorDoor = {
     notAvailable: 'bg-red-600'
 }
 
-export const inizializeStateLocker: ILocker = {
+export const inizializeStateLocker: ILockerProps = {
     locker_id: -1,
     client_id: -1,
     macAdd: "",
@@ -75,7 +78,7 @@ export interface IDepartament {
 }
 
 export interface StatusInfoProp {
-    locker: ILocker
+    locker: ILockerProps
     depataments: IDepartament[]
     movements: IMovement[]
 }
@@ -106,4 +109,74 @@ export interface IMovement {
     status_integrate: number
     create_at?: string
     update_at?: string
+}
+
+export interface ITypeMovement {
+    type_locker_id: number
+    name: string
+    description: string
+    create_at?: string
+}
+
+export const initializeStateTypelocker: ITypeMovement[] = [
+    {
+        type_locker_id: 1,
+        name: "x2 vertical",
+        description: ""
+    },
+]
+
+//controlers
+export interface IListController {
+    controller_id: number
+    locker_id: number
+    name: string
+    serie: string
+    create_at: string
+}
+export interface IDataTableController {
+    paginate: IPagination
+    controllers: IListController[]
+    sort: ISort
+}
+
+export const initialStateDataTableController: IDataTableController = {
+    paginate: initialPagination,
+    sort: {
+        active: "create_at",
+        direction: "asc"
+    },
+    controllers: []
+}
+//////
+export interface ILocker {
+    locker_id: number
+    type_locker_id: number
+    name: string
+    address: string
+    state: number
+}
+
+export const initialStateLocker: ILocker = {
+    locker_id: -1,
+    type_locker_id: 1,
+    name: '',
+    address: '',
+    state: -1,
+}
+
+/////
+export interface IController {
+    controller_id: number
+    locker_id: number
+    name: string
+    serie: string
+    create_at?: string
+}
+export const initialStateController: IController = {
+    controller_id: -1,
+    locker_id: -1,
+    name: "",
+    serie: "",
+    create_at: ""
 }

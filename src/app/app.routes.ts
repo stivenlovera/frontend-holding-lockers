@@ -10,7 +10,7 @@ import { LayoutComponent } from 'app/layout/layout.component';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/dashboards/project'
-    { path: '', pathMatch: 'full', redirectTo: 'dashboards/project' },
+    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
     // Redirect signed-in user to the '/dashboards/project'
     //
@@ -79,8 +79,11 @@ export const appRoutes: Route[] = [
             {
                 path: 'movement', loadChildren: () => import('app/modules/movement/movement.routes'),
             },
-             {
+            {
                 path: 'department', loadChildren: () => import('app/modules/department/department.routes'),
+            },
+            {
+                path: 'user', loadChildren: () => import('app/modules/user/user.routes'),
             },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }

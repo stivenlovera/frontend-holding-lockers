@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, input, OnInit, signal } from '@angular/core';
-import { ILocker, initializeStateResumelocker, ResumelockerProp } from '../../locker.types';
+import { ILockerProps, initializeStateResumelocker, ResumelockerProp } from '../../locker.types';
 
 @Component({
   selector: 'resumen-locker',
@@ -11,7 +11,7 @@ import { ILocker, initializeStateResumelocker, ResumelockerProp } from '../../lo
 })
 export class ResumenLockerComponent implements OnInit {
 
-  locker = input.required<ILocker>()
+  locker = input.required<ILockerProps>()
   resume = input.required<ResumelockerProp>()
 
   constructor() {

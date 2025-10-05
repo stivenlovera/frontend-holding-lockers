@@ -1,0 +1,7 @@
+{
+    "/api": {
+        "target": "https://api-locker.holding-lockers.com",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

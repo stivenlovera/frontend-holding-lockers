@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { colorDoor, ILocker } from '../../locker.types';
+import { colorDoor, ILockerProps } from '../../locker.types';
 
 @Component({
   selector: 'detail-locker',
@@ -14,5 +14,5 @@ export class DetailLockerComponent {
   ColorAvailable = colorDoor.available
   ColorNoAvailable = colorDoor.notAvailable
 
-  locker = input.required<ILocker>()
+  locker = input.required<ILockerProps>()
 }

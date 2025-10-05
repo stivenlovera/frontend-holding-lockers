@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from 'app/core/user/user.types';
+import { IUser, User } from 'app/core/user/user.types';
+import { environment } from 'environments/environment';
 import { map, Observable, ReplaySubject, tap } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class UserService
 {
     private _httpClient = inject(HttpClient);
-    private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
+    private _user: ReplaySubject<IUser> = new ReplaySubject<IUser>(1);
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -18,13 +19,13 @@ export class UserService
      *
      * @param value
      */
-    set user(value: User)
+    set user(value: IUser)
     {
         // Store the value
         this._user.next(value);
     }
 
-    get user$(): Observable<User>
+    get user$(): Observable<IUser>
     {
         return this._user.asObservable();
     }
@@ -36,9 +37,9 @@ export class UserService
     /**
      * Get the current signed-in user data
      */
-    get(): Observable<User>
+    get(): Observable<IUser>
     {
-        return this._httpClient.get<User>('api/common/user').pipe(
+        return this._httpClient.get<IUser>(`${environment.apiUrl}/auth`).pipe(
             tap((user) =>
             {
                 this._user.next(user);
@@ -51,9 +52,9 @@ export class UserService
      *
      * @param user
      */
-    update(user: User): Observable<any>
+    update(user: IUser): Observable<any>
     {
-        return this._httpClient.patch<User>('api/common/user', {user}).pipe(
+        return this._httpClient.patch<IUser>('api/common/user', {user}).pipe(
             map((response) =>
             {
                 this._user.next(response);

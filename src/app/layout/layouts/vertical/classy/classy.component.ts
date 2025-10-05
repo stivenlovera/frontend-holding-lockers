@@ -10,7 +10,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { UserService } from 'app/core/user/user.service';
-import { User } from 'app/core/user/user.types';
+import { IUser, User } from 'app/core/user/user.types';
 import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
 import { MessagesComponent } from 'app/layout/common/messages/messages.component';
 import { NotificationsComponent } from 'app/layout/common/notifications/notifications.component';
@@ -21,6 +21,7 @@ import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { MatMenu, MatMenuModule } from "@angular/material/menu";
+import { MatTooltip, MatTooltipModule } from "@angular/material/tooltip";
 
 
 @Component({
@@ -29,28 +30,30 @@ import { MatMenu, MatMenuModule } from "@angular/material/menu";
     encapsulation: ViewEncapsulation.None,
     standalone   : true,
     imports: [
-        FuseLoadingBarComponent,
-         FuseVerticalNavigationComponent, 
-         NotificationsComponent, 
-         UserComponent, 
-         NgIf,
-          MatIconModule, 
-          MatButtonModule, 
-          LanguagesComponent, 
-          FuseFullscreenComponent, 
-          SearchComponent, 
-          ShortcutsComponent, 
-          MessagesComponent, 
-          RouterOutlet,
-           QuickChatComponent, 
-           RouterLink, 
-           MatMenuModule],
+    FuseLoadingBarComponent,
+    FuseVerticalNavigationComponent,
+    NotificationsComponent,
+    UserComponent,
+    NgIf,
+    MatIconModule,
+    MatButtonModule,
+    LanguagesComponent,
+    FuseFullscreenComponent,
+    SearchComponent,
+    ShortcutsComponent,
+    MessagesComponent,
+    RouterOutlet,
+    QuickChatComponent,
+    RouterLink,
+    MatMenuModule,
+    MatTooltipModule
+],
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy
 {
     isScreenSmall: boolean;
     navigation: Navigation;
-    user: User;
+    user: IUser;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -99,7 +102,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
         // Subscribe to the user service
         this._userService.user$
             .pipe((takeUntil(this._unsubscribeAll)))
-            .subscribe((user: User) =>
+            .subscribe((user: IUser) =>
             {
                 this.user = user;
             });
@@ -149,4 +152,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     {
         this._router.navigate(['/sign-out']);
     }
+
+    
 }

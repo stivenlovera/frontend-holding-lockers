@@ -1,0 +1,154 @@
+<div class="flex flex-col px-8 pt-10 bg-card shadow rounded overflow-hidden">
+    <div class="col-span-2 flex justify-between">
+        <div>
+            <p class="text-lg font-medium">Casilleros</p>
+            <p class="text-secondary mb-6">
+                Gestione casilleros y su conmandos de configuracion
+            </p>
+        </div>
+        <div>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class=""
+                type="button"
+                (click)="
+                    handlerOpenModalController({
+                        door_id: -1,
+                        edit: false,
+                        name: 'Nuevo Casillero',
+                        locker_id: locker_id()
+                    })
+                "
+            >
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_outline:plus'"
+                ></mat-icon>
+                <span class="ml-2">Nuevo controlador</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-span-2 pb-6">
+        <div class="grid">
+            <div
+                class="movement-grid grid xs:grid-cols-3 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
+                matSort
+                matSortDisableClear
+            >
+                <div
+                    class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
+                    [mat-sort-header]="'name'"
+                    (click)="handleSorts()"
+                >
+                    Nombre de casillero
+                </div>
+                <div
+                    class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
+                    [mat-sort-header]="'controller_id'"
+                    (click)="handleSorts()"
+                >
+                    Tamaño
+                </div>
+                <div
+                    class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
+                    [mat-sort-header]="'code'"
+                    (click)="handleSorts()"
+                >
+                    order
+                </div>
+                <div
+                    class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
+                    [mat-sort-header]="'door_size_id'"
+                    (click)="handleSorts()"
+                >
+                    Estado
+                </div>
+                <div
+                    class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
+                    [mat-sort-header]="'state'"
+                    (click)="handleSorts()"
+                >
+                    Controlador
+                </div>
+                <div
+                    class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
+                    (click)="handleSorts()"
+                >
+                    Acciones
+                </div>
+            </div>
+            <div class="flex flex-auto flex-col overflow-y-auto">
+                @for (door of dataTableDoor().doors; track $index) {
+                <div
+                    class="movement-grid grid xs:grid-cols-3 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 items-center gap-2 py-3 px-6 md:px-8 border-b"
+                >
+                    <div
+                        class="truncate xs:truncate sm:block md:block lg:block xl:block"
+                    >
+                        {{ door.name }}
+                    </div>
+                    <div
+                        class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
+                    >
+                        {{ door.door_size_name }}
+                    </div>
+                    <div class="hidden xs:hidden md:block lg:block xl:block">
+                        {{ door.order }}
+                    </div>
+                    <div class="hidden xs:hidden md:block lg:block xl:block">
+                        @if(door.state ){
+                        <mat-chip cdkDrag>Habilitado</mat-chip>
+                        } @else{
+                        <mat-chip cdkDrag>Deshabilitado</mat-chip>
+                        }
+                    </div>
+                    <div class="hidden xs:hidden md:block lg:block xl:block">
+                        {{ door.controller_name }}
+                    </div>
+                    <div
+                        class="truncate xs:truncate md:block lg:block xl:block"
+                    >
+                        <button
+                            class="mx-1"
+                            mat-icon-button
+                            matTooltip="Editar"
+                            (click)="
+                                handlerOpenModalController({
+                                    door_id: door.door_id,
+                                    edit: true,
+                                    name: 'Editar Casillero',
+                                    locker_id: locker_id()
+                                })
+                            "
+                        >
+                            <mat-icon
+                                svgIcon="heroicons_solid:arrow-top-right-on-square"
+                            ></mat-icon>
+                        </button>
+                        <button
+                            class="mx-1"
+                            mat-icon-button
+                            [color]="'warn'"
+                            matTooltip="Eliminar"
+                            (click)="handlerDelete(door.door_id)"
+                        >
+                            <mat-icon
+                                svgIcon="heroicons_outline:trash"
+                            ></mat-icon>
+                        </button>
+                    </div>
+                </div>
+                }
+                <!-- <mat-paginator
+            class="bg-gray-50 border-b dark:bg-transparent absolute border-t bottom-0 inset-x-0 z-10"
+            [length]="dataTableDoor().paginate.length"
+            [pageIndex]="dataTableDoor().paginate.pageIndex"
+            [pageSize]="dataTableDoor().paginate.pageSize"
+            [pageSizeOptions]="initialPagination.PageSizeOption"
+            (page)="handlePageEvent($event)"
+        ></mat-paginator> -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,7 +15,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatButtonModule,
     MatSortModule,
     MatPaginatorModule,
-
   ],
   templateUrl: './datatable-movement.component.html',
   styleUrl: './datatable-movement.component.css',

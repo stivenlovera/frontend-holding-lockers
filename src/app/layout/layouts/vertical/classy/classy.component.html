@@ -18,7 +18,7 @@
         <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
             <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
             <messages></messages>
-            <shortcuts></shortcuts>
+            <!-- <shortcuts></shortcuts> -->
             <button mat-icon-button [matMenuTriggerFor]="menuUser">
                 <mat-icon svgIcon="heroicons_outline:user-circle"></mat-icon>
             </button>
@@ -29,14 +29,16 @@
                             class="icon-size-5 mr-3"
                             [svgIcon]="'heroicons_solid:user-circle'"
                         ></mat-icon>
-                        <span>User test</span>
+                        <span>{{ user.auth.name }}</span>
                     </span>
                 </button>
                 <button mat-menu-item (click)="signOut()">
                     <span class="flex items-center">
                         <mat-icon
                             class="icon-size-5 mr-3"
-                            [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
+                            [svgIcon]="
+                                'heroicons_outline:arrow-right-on-rectangle'
+                            "
                         ></mat-icon>
                         <span>Cerrar session</span>
                     </span>

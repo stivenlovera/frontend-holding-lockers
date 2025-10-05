@@ -1,0 +1,7 @@
+:host {
+  display: block;
+}
+.mat-mdc-dialog-title {
+  margin: 20px;
+  padding: 0px;
+}
