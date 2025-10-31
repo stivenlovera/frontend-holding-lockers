@@ -1,0 +1,65 @@
+<div
+    class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent"
+>
+    <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap items-center font-medium">
+            <div>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="'/building'"
+                    >Tablero</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="
+                        '/locker/building-lockers/' + locker().building_id
+                    "
+                    >Edificio</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="'/locker/status/' + lockerId"
+                    >Locker</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="'/department/' + departmentId"
+                    >Departamentos</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                Hospedados
+            </div>
+        </div>
+        <div class="mt-2">
+            <h2
+                class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+            >
+                Hospedados
+            </h2>
+        </div>
+    </div>
+</div>
+<data-table-user [dataTableUsers]="dataTableUser()"></data-table-user>

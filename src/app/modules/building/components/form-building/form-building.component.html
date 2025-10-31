@@ -1,0 +1,110 @@
+<form
+    class="flex flex-col px-8 pt-10 bg-card shadow rounded overflow-hidden"
+    [formGroup]="formBuilding"
+>
+    <div
+        class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2"
+    >
+        <div class="sm:col-span-1 md:col-span-2 lg:col-span-4 xl:col-span-4">
+            <p class="text-lg font-medium">Información sobre edificio</p>
+            <p class="text-secondary mb-6">
+                Informacion basica acerca del edificio
+            </p>
+        </div>
+        <div class="md:col-span-1 lg:col-span-2 xl:col-span-2">
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Nombre Edificio</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Nombre Edificio'"
+                    [formControlName]="'name'"
+                />
+                @if (formBuilding.get('name')?.hasError('required')) {
+                <mat-error>Nombre requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Telefono</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Telefono'"
+                    [formControlName]="'phone'"
+                />
+                @if (formBuilding.get('phone')?.hasError('required')) {
+                <mat-error>Telefono requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Codigo</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Codigo'"
+                    [formControlName]="'code'"
+                />
+                @if (formBuilding.get('code')?.hasError('required')) {
+                <mat-error>Codigo es requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="md:col-span-1 lg:col-span-2 xl:col-span-2">
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Encargado</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Encargado'"
+                    [formControlName]="'manager'"
+                />
+                @if (formBuilding.get('manager')?.hasError('required')) {
+                <mat-error>Encargado es requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Empresa</mat-label>
+                <mat-select
+                    [placeholder]="'Empresa'"
+                    [formControlName]="'company_id'"
+                >
+                    <mat-option [value]="1">holding</mat-option>
+                </mat-select>
+                @if (formBuilding.get('company_id')?.hasError('required')) {
+                <mat-error>Empresa es requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="lg:col-span-4 xl:col-span-4">
+            <mat-form-field class="w-full" [floatLabel]="'always'">
+                <mat-label>Direccion</mat-label>
+                <input
+                    matInput
+                    [placeholder]="'Direccion'"
+                    [formControlName]="'address'"
+                />
+                @if (formBuilding.get('address')?.hasError('required')) {
+                <mat-error>Direccion requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="md:col-span-2 lg:col-span-4 xl:col-span-4">
+            <div
+                class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+            >
+                <!-- <button mat-button>Cancel</button> -->
+                <button
+                    class="px-6 ml-3"
+                    mat-flat-button
+                    [color]="'primary'"
+                    type="button"
+                    (click)="handlerSubmit()"
+                >
+                    Guardar y volver
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

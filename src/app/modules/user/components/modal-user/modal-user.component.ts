@@ -11,6 +11,7 @@ import { UserService } from '../../user.service';
 import { lastValueFrom } from 'rxjs';
 import { MatSlideToggle } from "@angular/material/slide-toggle";
 import { SnackBar } from 'app/utils/snack-bar';
+import { IBuilding } from 'app/modules/building/building.types';
 
 @Component({
   selector: 'app-modal-user',
@@ -40,16 +41,17 @@ import { SnackBar } from 'app/utils/snack-bar';
 export class ModalUserComponent {
 
   roles = signal<IRoles[]>([])
+  buildings = signal<IBuilding[]>([])
 
   formUser = new FormGroup({
     id: new FormControl(-1),
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    roles: new FormControl([], [Validators.required]),
+    roles: new FormControl([1], [Validators.required]),
     celular: new FormControl('', [Validators.required]),
     reset_password: new FormControl(false),
     password: new FormControl('', [Validators.required]),
-
+    buildings: new FormControl([], [Validators.required]),
   })
 
   constructor(
@@ -63,16 +65,13 @@ export class ModalUserComponent {
     }
     this.requirement()
     this.handlerChangeResetPassword()
-
   }
 
   handlerSubmit() {
     if (this.formUser.valid) {
       if (this.data.edit) {
-        console.log('editar')
         this.updateUser()
       } else {
-        console.log('store')
         this.storeUser()
       }
     } else {
@@ -83,6 +82,7 @@ export class ModalUserComponent {
   async requirement() {
     const res = await lastValueFrom(this._userService.userRequeriments());
     this.roles.set(res.data.roles)
+    this.buildings.set(res.data.buildings)
     if (this.data.edit) {
       this.editUser()
     }
@@ -126,6 +126,16 @@ export class ModalUserComponent {
     else {
       this.formUser.get('password').setValidators(null);
       this.formUser.get('password').updateValueAndValidity();
+    }
+  }
+
+  checkRol() {
+    const roles = this.formUser.get('roles').value as number[]
+    const rol = roles.filter((rol) => rol === 2)
+    if (rol.length > 0) {
+      return true
+    } else {
+      return false
     }
   }
 }

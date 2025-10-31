@@ -1,40 +1,33 @@
 <div class="grid">
     <div
-        class="movement-grid grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-8 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
+        class="movement-grid grid xs:grid-cols-7 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
         matSort
         matSortDisableClear
     >
         <div
             class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
-                [mat-sort-header]="'department'"
+            [mat-sort-header]="'department'"
             (click)="handleSorts()"
         >
             Departamento
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-                [mat-sort-header]="'casillero'"
+            [mat-sort-header]="'casillero'"
             (click)="handleSorts()"
         >
             Casillero
         </div>
         <div
-            class="hidden xs:hidden sm:hidden md:hidden lg:block xl:block"
-                [mat-sort-header]="'code'"
-            (click)="handleSorts()"
-        >
-            Code
-        </div>
-        <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-                [mat-sort-header]="'status_integrate'"
+            [mat-sort-header]="'status_integrate'"
             (click)="handleSorts()"
         >
             Integracion
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-                [mat-sort-header]="'status_notificate'"
+            [mat-sort-header]="'status_notificate'"
             (click)="handleSorts()"
         >
             Whatsapp
@@ -63,7 +56,7 @@
     <div class="flex flex-auto flex-col overflow-y-auto">
         @for (movement of dataTableMovement().movements; track $index) {
         <div
-            class="movement-grid grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-8 items-center gap-2 py-3 px-6 md:px-8 border-b"
+            class="movement-grid grid xs:grid-cols-7 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 items-center gap-2 py-3 px-6 md:px-8 border-b"
         >
             <div
                 class="truncate xs:truncate sm:block md:block lg:block xl:block"
@@ -74,13 +67,14 @@
                 {{ movement.casillero }}
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
-                {{ movement.code }}
+                <mat-chip class="" cdkDrag>
+                    {{ movement.status_integrate === 0 ? "No" : "Si" }}
+                </mat-chip>
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
-                {{ movement.status_integrate }}
-            </div>
-            <div class="hidden xs:hidden md:block lg:block xl:block">
-                {{ movement.status_notificate }}
+                <mat-chip class="" cdkDrag>
+                    {{ movement.status_notificate === 0 ? "No" : "Si" }}
+                </mat-chip>
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
                 {{ movement.create_at }}

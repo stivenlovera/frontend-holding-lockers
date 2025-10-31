@@ -3,8 +3,8 @@ import { IResponse, ISort } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { IDoor, ILocker, ILockerProps, StatusInfoProp } from './locker.types';
-import { CardLockerProps, IRequerimentLocker } from '../dashboard/dashboard.types';
+import { CardLockerProps, IDataTableController, IDoor, ILocker, ILockerProps, IRequerimentLocker, StatusInfoProp } from './locker.types';
+import { IPagination } from 'app/shared/paginator.traslate';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,30 @@ export class LockerService {
   constructor(
     private _httpClient: HttpClient
   ) { }
+
+  public dataTableController({ length, pageIndex, pageSize }: IPagination, { active, direction }: ISort): Observable<IResponse<IDataTableController>> {
+    const response = this._httpClient
+      .post<IResponse<IDataTableController>>(
+        `${environment.apiUrl}/controller/data-table`,
+        {
+          length,
+          pageIndex,
+          pageSize,
+          active,
+          direction
+        }
+      );
+    return response;
+  }
+
+  public getDashboardInfo(building_id: number): Observable<IResponse<CardLockerProps>> {
+    const response = this._httpClient
+      .post<IResponse<CardLockerProps>>(
+        `${environment.apiUrl}/building/dashboard-locker`,
+        { building_id }
+      );
+    return response;
+  }
 
   public getLockerStatus(locker_id: number): Observable<IResponse<StatusInfoProp>> {
     const response = this._httpClient

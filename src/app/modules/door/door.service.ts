@@ -4,8 +4,7 @@ import { IPagination } from 'app/shared/paginator.traslate';
 import { IResponse, ISort } from 'app/utils/util.types';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
-import { IController, IDataTableController, IListController } from '../locker/locker.types';
-import { CardLockerProps } from '../dashboard/dashboard.types';
+import { CardLockerProps, IController, IDataTableController, IListController } from '../locker/locker.types';
 import { IDataTableDoor, IDoor, RequerimentsProp } from './door.type';
 
 

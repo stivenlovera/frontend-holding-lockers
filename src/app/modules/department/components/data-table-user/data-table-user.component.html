@@ -1,0 +1,64 @@
+<div class="grid border">
+    <div
+        class="movement-grid grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
+        matSort
+        matSortDisableClear
+    >
+        <div
+            class="hidden xs:hidden sm:block md:block lg:block xl:block"
+            [mat-sort-header]="'name'"
+            (click)="handleSorts()"
+        >
+            Nombre completo
+        </div>
+        <div
+            class="hidden xs:hidden sm:block md:block lg:block xl:block"
+            [mat-sort-header]="'celular'"
+            (click)="handleSorts()"
+        >
+            Celular
+        </div>
+        <div
+            class="hidden xs:hidden sm:block md:block lg:block xl:block"
+            [mat-sort-header]="'state'"
+            (click)="handleSorts()"
+        >
+            Estado
+        </div>
+        <div
+            class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
+        >
+            Acciones
+        </div>
+    </div>
+    <div class="flex flex-auto flex-col overflow-y-auto">
+        @for (user of dataTableUsers().users; track $index) {
+        <div
+            class="movement-grid grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 items-center gap-2 py-3 px-6 md:px-8 border-b"
+        >
+            <div
+                class="truncate xs:truncate sm:block md:block lg:block xl:block"
+            >
+                {{ user.name }}
+            </div>
+            <div class="hidden xs:truncate sm:block md:block lg:block xl:block">
+                {{ user.celular }}
+            </div>
+            <div class="hidden xs:truncate sm:block md:block lg:block xl:block">
+                <mat-chip class="" cdkDrag>{{
+                    user.state === 0 ? "Desactivado" : "Activo"
+                }}</mat-chip>
+            </div>
+            <div class="truncate xs:truncate md:block lg:block xl:block"></div>
+        </div>
+        }
+        <mat-paginator
+            class="bg-gray-50 border-b dark:bg-transparent absolute border-t bottom-0 inset-x-0 z-10"
+            [length]="dataTableUsers().paginate.length"
+            [pageIndex]="dataTableUsers().paginate.pageIndex"
+            [pageSize]="dataTableUsers().paginate.pageSize"
+            [pageSizeOptions]="initialPagination.PageSizeOption"
+            (page)="handlePageEvent($event)"
+        ></mat-paginator>
+    </div>
+</div>

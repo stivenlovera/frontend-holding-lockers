@@ -69,7 +69,31 @@
                     }
                 </mat-form-field>
             </div>
-            @if (data.edit) {
+            @if(checkRol()){
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Seleccione edificio</mat-label>
+                    <mat-select
+                        [multiple]="true"
+                        [placeholder]="'buildings'"
+                        [formControlName]="'buildings'"
+                    >
+                        @for (building of buildings(); track $index) {
+                        <mat-option [value]="building.building_id">{{
+                            building.name
+                        }}</mat-option>
+                        }
+                    </mat-select>
+                    @if (formUser.get('buildings')?.hasError('required')) {
+                    <mat-error>Edificio es requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-span-4">
+                <hr class="m-0" />
+            </div>
+
+            } @if (data.edit) {
             <div class="col-span-2">
                 <label class="text-neutral-900">Resetear contraseña</label>
                 <br class="" />

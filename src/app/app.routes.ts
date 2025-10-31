@@ -49,7 +49,7 @@ export const appRoutes: Route[] = [
     },
 
     // Landing routes
-    {
+   /*  {
         path: '',
         component: LayoutComponent,
         data: {
@@ -58,7 +58,7 @@ export const appRoutes: Route[] = [
         children: [
             { path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes') },
         ]
-    },
+    }, */
 
     // Admin routes
     {
@@ -71,7 +71,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {
-                path: 'dashboard', loadChildren: () => import('app/modules/dashboard/dashboard.routes'),
+                path: 'building', loadChildren: () => import('app/modules/building/building.routes'),
             },
             {
                 path: 'locker', loadChildren: () => import('app/modules/locker/locker.routes'),

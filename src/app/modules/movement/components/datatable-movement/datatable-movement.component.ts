@@ -5,7 +5,7 @@ import { initialPagination, IPagination } from 'app/shared/paginator.traslate';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-
+import { MatChip } from "@angular/material/chips";
 
 @Component({
   selector: 'datatable-movement',
@@ -15,7 +15,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatButtonModule,
     MatSortModule,
     MatPaginatorModule,
-  ],
+    MatChip
+],
   templateUrl: './datatable-movement.component.html',
   styleUrl: './datatable-movement.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

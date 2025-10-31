@@ -1,5 +1,6 @@
 import { initialPagination, IPagination } from "app/shared/paginator.traslate"
 import { ISort } from "app/utils/util.types"
+import { IBuilding } from "../building/building.types"
 
 export interface IListUser {
     id: number
@@ -32,16 +33,18 @@ export interface IUser {
     celular: string
     reset_password: boolean
     password: string
+    buildings: number[]
 }
 
 export const initialStateUser: IUser = {
     id: 1,
     name: 'string',
     email: 'string',
-    roles: [],
+    roles: [1],
     celular: '',
     reset_password: true,
-    password: ''
+    password: '',
+    buildings: []
 }
 
 export interface IRoles {
@@ -51,6 +54,7 @@ export interface IRoles {
 
 export interface IRequirementUser {
     roles: IRoles[]
+    buildings: IBuilding[]
 }
 
 export interface ModalUserProp {

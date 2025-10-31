@@ -1,6 +1,57 @@
 import { initialPagination, IPagination } from "app/shared/paginator.traslate"
 import { ISort } from "app/utils/util.types"
+import { IBuilding, initialStateBuilding } from "../building/building.types"
 
+export interface IUserCard {
+    id: number
+    name: string
+    email: string
+    celular: string
+}
+export interface CardLockerProps {
+    lockers: Locker[]
+    building: IBuilding
+    //users: IUserCard[]
+}
+
+export interface Locker {
+    locker_id: number
+    address: string
+    name: string
+    doors: Door[]
+}
+
+export interface Door {
+    door_id: number
+    door_size_id: number
+    controller_id: number
+    number: number
+    channel: string
+    orden: number
+    state: number
+}
+
+export const inizializeStateCardLockerProps: CardLockerProps = {
+    lockers: [],
+    building: initialStateBuilding
+}
+
+export interface ITypeLocker {
+    create_at: string
+    description: string
+    name: string
+    type_locker_id: -1
+}
+
+export interface IRequerimentLocker {
+    type_lockers: ITypeLocker[]
+}
+
+export const requerimentLocker: IRequerimentLocker = {
+    type_lockers: []
+}
+
+////
 export interface ILockerProps {
     locker_id: number
     client_id: number
@@ -81,6 +132,7 @@ export interface StatusInfoProp {
     locker: ILockerProps
     depataments: IDepartament[]
     movements: IMovement[]
+    building: IBuilding
 }
 
 export const inizializeStateStatusInfoProp: StatusInfoProp = {
@@ -94,7 +146,8 @@ export const inizializeStateStatusInfoProp: StatusInfoProp = {
         doors: []
     },
     depataments: [],
-    movements: []
+    movements: [],
+    building: initialStateBuilding
 }
 
 export interface IMovement {
@@ -150,6 +203,7 @@ export const initialStateDataTableController: IDataTableController = {
 }
 //////
 export interface ILocker {
+    building_id: number
     locker_id: number
     type_locker_id: number
     name: string
@@ -158,11 +212,13 @@ export interface ILocker {
 }
 
 export const initialStateLocker: ILocker = {
+    building_id: -1,
     locker_id: -1,
     type_locker_id: 1,
     name: '',
     address: '',
     state: -1,
+
 }
 
 /////

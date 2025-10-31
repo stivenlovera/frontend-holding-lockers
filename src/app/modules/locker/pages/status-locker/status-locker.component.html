@@ -6,8 +6,22 @@
             <div>
                 <a
                     class="whitespace-nowrap text-primary-500"
-                    [routerLink]="'/dashboard'"
-                    >Dashboard</a
+                    [routerLink]="'/building'"
+                    >Tablero</a
+                >
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"
+                ></mat-icon>
+                <a
+                    class="whitespace-nowrap text-primary-500"
+                    [routerLink]="
+                        '/locker/building-lockers/' +
+                        statusInfo().building.building_id
+                    "
+                    >Edificio</a
                 >
             </div>
             <div class="flex items-center ml-1 whitespace-nowrap">
@@ -137,7 +151,7 @@
                                 {{ statusInfo().movements.length }}
                             </div>
                             <div class="mt-1 text-sm sm:text-lg font-medium">
-                                Movimientos
+                                Actividades
                             </div>
                         </a>
                     </div>
