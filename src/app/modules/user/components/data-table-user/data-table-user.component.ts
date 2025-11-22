@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, input, Output, ViewChild } from '@angular/core';
-import { initialPagination } from 'app/shared/paginator.traslate';
+import { initialPagination, PaginateTraslate } from 'app/shared/paginator.traslate';
 import { IDataTableUser, ModalUserProp } from '../../user.types';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIcon } from "@angular/material/icon";
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +25,7 @@ import { SnackBar } from 'app/utils/snack-bar';
   templateUrl: './data-table-user.component.html',
   styleUrl: './data-table-user.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [Confirmation, SnackBar]
+  providers: [Confirmation, SnackBar, { provide: MatPaginatorIntl, useClass: PaginateTraslate }]
 })
 export class DataTableUserComponent {
 

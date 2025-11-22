@@ -65,6 +65,7 @@ export class ModalUserComponent {
     }
     this.requirement()
     this.handlerChangeResetPassword()
+    this.checkRol()
   }
 
   handlerSubmit() {
@@ -131,11 +132,21 @@ export class ModalUserComponent {
 
   checkRol() {
     const roles = this.formUser.get('roles').value as number[]
-    const rol = roles.filter((rol) => rol === 2)
-    if (rol.length > 0) {
-      return true
-    } else {
+    const rol = roles.filter((rol) => rol === 2 || rol === 1)
+    if (rol.length > 1) {
+      this.formUser.get('buildings').setValidators(null);
+      this.formUser.get('buildings').updateValueAndValidity();
       return false
+    } else {
+      if (rol.find(r => r === 1)) {
+        this.formUser.get('buildings').setValidators(null);
+        this.formUser.get('buildings').updateValueAndValidity();
+        return false
+      } else {
+        this.formUser.get('buildings').setValidators(Validators.required);
+        this.formUser.get('buildings').updateValueAndValidity();
+        return true
+      }
     }
   }
 }

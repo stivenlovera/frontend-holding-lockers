@@ -162,6 +162,7 @@
                 <detail-door
                     [locker]="statusInfo().locker"
                     [selected]="selected()"
+                    (onOpen)="handlerOpenDoor($event)"
                 ></detail-door>
             </div>
         </div>

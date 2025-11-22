@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, input, Output, signal, ViewChild } from '@angular/core';
-import { PageEvent, MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { PageEvent, MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { IDataTableMovement } from 'app/modules/movement/movement.type';
-import { initialPagination, IPagination } from 'app/shared/paginator.traslate';
+import { initialPagination, IPagination, PaginateTraslate } from 'app/shared/paginator.traslate';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatChip } from "@angular/material/chips";
+import { MatDialog } from '@angular/material/dialog';
+import { ModalDetailedActivity } from '../modal-detailed-activity/modal-detailed-activity';
 
 @Component({
   selector: 'datatable-movement',
@@ -16,10 +18,11 @@ import { MatChip } from "@angular/material/chips";
     MatSortModule,
     MatPaginatorModule,
     MatChip
-],
+  ],
   templateUrl: './datatable-movement.component.html',
   styleUrl: './datatable-movement.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: MatPaginatorIntl, useClass: PaginateTraslate }]
 })
 export class DatatableLockerComponent {
   initialPagination = initialPagination
@@ -28,6 +31,12 @@ export class DatatableLockerComponent {
 
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
+
+  constructor(
+    private _matDialog: MatDialog,
+  ) {
+
+  }
 
   handleSorts() {
     //console.log(this._sort.active, this._sort.direction)
@@ -42,8 +51,14 @@ export class DatatableLockerComponent {
     this.reloadDataTableMovement.emit(this.dataTableMovement())
   }
 
-  constructor() {
+  handlerOpenModalDetailedActivity(id_ref: string) {
 
+    this._matDialog.open(ModalDetailedActivity, {
+      width: '800px',
+      //height: '500px',
+      data: id_ref
+    }).afterClosed().subscribe(result => {
+
+    })
   }
-
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { DatatableLockerComponent } from "app/modules/movement/components/datatable-movement/datatable-movement.component";
 import { IDataTableMovement, initialStateDataTableMovement } from '../../movement.type';
-import { LockerService } from '../../movement.service';
+import { MovementService } from '../../movement.service';
 import { take } from 'rxjs';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { PaginateTraslate } from 'app/shared/paginator.traslate';
@@ -22,9 +22,10 @@ export class ListMovementComponent implements OnInit {
   dataTableMovement = signal<IDataTableMovement>(initialStateDataTableMovement)
 
   constructor(
-    private lockerService: LockerService,
+    private movementService: MovementService,
     private _activateRoute: ActivatedRoute
   ) {
+   
   }
 
   ngOnInit(): void {
@@ -32,7 +33,7 @@ export class ListMovementComponent implements OnInit {
   }
 
   handlerDataTableMovement(dataTableMovement: IDataTableMovement) {
-    this.lockerService.getDataTableMovement(1, dataTableMovement.paginate, dataTableMovement.sort).pipe(take(1)).subscribe(
+    this.movementService.getDataTableMovement(1, dataTableMovement.paginate, dataTableMovement.sort).pipe(take(1)).subscribe(
       res => {
         this.dataTableMovement.set(res.data)
       }

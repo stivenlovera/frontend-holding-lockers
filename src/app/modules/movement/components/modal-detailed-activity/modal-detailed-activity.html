@@ -1,0 +1,82 @@
+<div class="dialog-title flex justify-between">
+    <div class="text-2xl w-full mt-2 m-1 px-4 font-medium">
+        Detalle de actividad
+    </div>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="mat-typography">
+    <div class="grid grid-cols-1 gap-2">
+        <h4 class="text-lg font-bold">Pendiente</h4>
+        <div class="rounded-md border-2 border-zinc-300 p-2">
+            @if (detailedActivity().entrada!==null) {
+            <div class="grid grid-cols-3 gap-2">
+                <div>
+                    <p><strong>Departamento:</strong></p>
+                    <p>{{detailedActivity().entrada.departament}}</p>
+                </div>
+                <div>
+                    <p><strong>Casillero:</strong></p>
+                    <p>{{detailedActivity().entrada.door}}</p>
+                </div>
+                <div>
+                    <p><strong>Fecha registro:</strong></p>
+                    <p>{{detailedActivity().entrada.create_at}}</p>
+                </div>
+                <div>
+                    <p><strong>Notificacion holding:</strong></p>
+                    <p>
+                        {{detailedActivity().entrada.status_integrate===0 ?'No'
+                        :'Si'}}
+                    </p>
+                </div>
+                <div>
+                    <p><strong>Notificacion Whatsapp:</strong></p>
+                    <p>
+                        {{detailedActivity().entrada.status_notificate===0 ?'No'
+                        :'Si'}}
+                    </p>
+                </div>
+            </div>
+            } @else {
+            <p class="p-4">NO REGISTRADO</p>
+            }
+        </div>
+        <h4 class="text-lg font-bold">Recepcionado</h4>
+        <div class="rounded-md border-2 border-zinc-300 p-2">
+            @if (detailedActivity().salida!==null) {
+            <div class="grid grid-cols-3 gap-2">
+                <div>
+                    <p><strong>Departamento:</strong></p>
+                    <p>{{detailedActivity().salida.departament}}</p>
+                </div>
+                <div>
+                    <p><strong>Casillero:</strong></p>
+                    <p>{{detailedActivity().salida.door}}</p>
+                </div>
+                <div>
+                    <p><strong>Fecha registro:</strong></p>
+                    <p>{{detailedActivity().salida.create_at}}</p>
+                </div>
+                <div>
+                    <p><strong>Notificacion Finalizada:</strong></p>
+                    <p>
+                        {{detailedActivity().salida.status_integrate===0
+                        ?'No':'Si'}}
+                    </p>
+                </div>
+                <div>
+                    <!-- <p><strong>Notificacion Whatsapp:</strong></p>
+                    <p>{{detailedActivity().salida.status_notificate}}</p> -->
+                </div>
+            </div>
+            } @else {
+            <p class="p-4">NO REGISTRADO</p>
+            }
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end">
+    <button mat-flat-button color="primary" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

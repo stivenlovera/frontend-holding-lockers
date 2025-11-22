@@ -87,4 +87,12 @@ export class LockerService {
       );
     return response;
   }
+
+  public openLocker(door_id: number): Observable<IResponse<any>> {
+    const response = this._httpClient
+      .get<IResponse<any>>(
+        `${environment.apiUrl}/door/open/${door_id}`,
+      );
+    return response;
+  }
 }

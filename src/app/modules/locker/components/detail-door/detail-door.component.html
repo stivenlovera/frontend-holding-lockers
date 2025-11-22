@@ -8,6 +8,26 @@
         @if (selected().selected) {
         <div class="flex flex-row items-center justify-between py-4 px-0.5">
             <div class="flex flex-col">
+                <div class="font-medium">Acciones:</div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3"
+                >
+                    <button
+                        mat-stroked-button
+                        (click)="
+                            handlerClick(locker().doors[this.selected().index])
+                        "
+                    >
+                        Abrir
+                    </button>
+                </div>
+            </div>
+            <button mat-icon-button>
+                <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+            </button>
+        </div>
+        <div class="flex flex-row items-center justify-between py-4 px-0.5">
+            <div class="flex flex-col">
                 <div class="font-medium">Numero de casillero:</div>
                 <div
                     class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3"
@@ -15,8 +35,7 @@
                     <div class="flex items-center">
                         <div class="ml-1.5 text-md text-secondary">
                             {{
-                                this.locker().doors[this.selected().index]
-                                    .name
+                                this.locker().doors[this.selected().index].name
                             }}
                         </div>
                     </div>
@@ -76,7 +95,20 @@
                 >
                     <div class="flex items-center">
                         <div class="ml-0.5 text-md text-secondary">
-                            entragado - 18/05/2025
+                            {{
+                                this.locker().doors[this.selected().index]
+                                    .tipo_movimiento
+                            }}
+                            {{
+                                this.locker().doors[this.selected().index]
+                                    .tipo_movimiento !== ""
+                                    ? "-"
+                                    : ""
+                            }}
+                            {{
+                                this.locker().doors[this.selected().index]
+                                    .update_at
+                            }}
                         </div>
                     </div>
                 </div>

@@ -23,14 +23,14 @@
             [mat-sort-header]="'status_integrate'"
             (click)="handleSorts()"
         >
-            Integracion
+            Sincronizacion Holding
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
             [mat-sort-header]="'status_notificate'"
             (click)="handleSorts()"
         >
-            Whatsapp
+            Sincronizacion Whatsapp
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
@@ -68,24 +68,27 @@
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
                 <mat-chip class="" cdkDrag>
-                    {{ movement.status_integrate === 0 ? "No" : "Si" }}
+                    {{ movement.status_integrate }}
                 </mat-chip>
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
                 <mat-chip class="" cdkDrag>
-                    {{ movement.status_notificate === 0 ? "No" : "Si" }}
+                    {{ movement.status_integrate === '0' ? "No" : "Si" }}
                 </mat-chip>
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
                 {{ movement.create_at }}
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
-                {{ movement.state }}
+                <mat-chip class="" cdkDrag>
+                    {{ movement.state }}
+                </mat-chip>
             </div>
             <div class="truncate xs:truncate md:block lg:block xl:block">
                 <button
                     mat-icon-button
                     aria-label="Example icon button with a vertical three dot icon"
+                    (click)="handlerOpenModalDetailedActivity(movement.id_ref)"
                 >
                     <mat-icon
                         svgIcon="heroicons_solid:arrow-top-right-on-square"

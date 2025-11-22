@@ -71,6 +71,8 @@ export interface IDoor {
     state: number
     create_at: string
     selected: boolean
+    tipo_movimiento: string
+    update_at: string
 }
 
 export const sizeDoor = {
@@ -83,7 +85,7 @@ export interface IColorDoor {
     notAvailable: string
 }
 export const colorDoor: IColorDoor = {
-    available: 'bg-green-200',
+    available: 'bg-green-400',
     notAvailable: 'bg-red-600'
 }
 

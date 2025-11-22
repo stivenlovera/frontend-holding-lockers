@@ -57,6 +57,7 @@
                         [multiple]="true"
                         [placeholder]="'roles'"
                         [formControlName]="'roles'"
+                        (selectionChange)="checkRol()"
                     >
                         @for (rol of roles(); track $index) {
                         <mat-option [value]="rol.rol_id">{{
