@@ -1,6 +1,6 @@
 <div class="flex flex-col flex-auto min-w-0">
     <!-- Header -->
-     <div
+    <div
         class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent"
     >
         <div class="flex-1 min-w-0">
@@ -36,9 +36,8 @@
                                 (onNavigate)="onNavigate($event)"
                             >
                             </card-building>
-                            <!-- @if (validateAdmin()) { -->
-                            }
-                            <!-- } -->
+                            } @if (validateAdmin()) {
+
                             <div
                                 class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer border-2 border-gray-300 border-dashed hover:bg-hover transition-colors duration-150 ease-in-out"
                                 (click)="handlerCreatelocker()"
@@ -48,6 +47,7 @@
                                     [svgIcon]="'heroicons_outline:plus'"
                                 ></mat-icon>
                             </div>
+                            }
                         </div>
                     </ng-template>
                 </mat-tab>
