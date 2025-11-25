@@ -7,7 +7,9 @@ export interface IUser {
     department_id: number
     name: string
     celular: string
-    state: number
+    state: number,
+    name_building: string
+    name_department: string
 }
 
 export interface IDataTableUser {
@@ -32,7 +34,8 @@ export interface IListDepartament {
     building_id: number
     name: string
     state: number
-    users: IUser[]
+    users: IUser[],
+    name_builder: string
 }
 
 export interface IDataTableDepartament {

@@ -9,6 +9,13 @@
             [mat-sort-header]="'department_id'"
             (click)="handleSorts()"
         >
+            Edificio
+        </div>
+        <div
+            class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
+            [mat-sort-header]="'department_id'"
+            (click)="handleSorts()"
+        >
             Nombre
         </div>
         <div
@@ -19,12 +26,7 @@
             Estado
         </div>
         <div class="hidden xs:hidden sm:block md:block lg:block xl:block">
-            Hospedados
-        </div>
-        <div
-            class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
-        >
-            Acciones
+            Usuarios
         </div>
     </div>
     <div class="flex flex-auto flex-col overflow-y-auto">
@@ -32,6 +34,11 @@
         <div
             class="movement-grid grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 items-center gap-2 py-3 px-6 md:px-8 border-b"
         >
+            <div
+                class="truncate xs:truncate sm:block md:block lg:block xl:block"
+            >
+                {{ department.name_builder }}
+            </div>
             <div
                 class="truncate xs:truncate sm:block md:block lg:block xl:block"
             >
@@ -49,7 +56,10 @@
                     [color]="'primary'"
                     matTooltip="Eliminar"
                     [routerLink]="
-                        '/department/' + lockerId() + '/users/' + department.department_id 
+                        '/department/' +
+                        lockerId() +
+                        '/users/' +
+                        department.department_id
                     "
                 >
                     {{
@@ -59,17 +69,7 @@
                     }}
                 </a>
             </div>
-            <div class="truncate xs:truncate md:block lg:block xl:block">
-                <button
-                    class="mx-1"
-                    mat-icon-button
-                    [color]="'primary'"
-                    matTooltip="Ver"
-                    (click)="handlerViewDepartament(department.department_id)"
-                >
-                    <mat-icon svgIcon="heroicons_outline:eye"></mat-icon>
-                </button>
-            </div>
+           
         </div>
         }
         <mat-paginator
