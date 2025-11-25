@@ -49,7 +49,7 @@
                     [color]="'primary'"
                     matTooltip="Eliminar"
                     [routerLink]="
-                        '/department/' + department.department_id + '/users/' + department.department_id 
+                        '/department/' + lockerId() + '/users/' + department.department_id 
                     "
                 >
                     {{
@@ -64,7 +64,7 @@
                     class="mx-1"
                     mat-icon-button
                     [color]="'primary'"
-                    matTooltip="Eliminar"
+                    matTooltip="Ver"
                     (click)="handlerViewDepartament(department.department_id)"
                 >
                     <mat-icon svgIcon="heroicons_outline:eye"></mat-icon>

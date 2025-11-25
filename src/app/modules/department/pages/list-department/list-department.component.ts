@@ -21,6 +21,7 @@ import { ILocker, initialStateLocker } from 'app/modules/locker/locker.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListDepartmentComponent implements OnInit {
+
   lockerId = parseInt(this._activateRoute.snapshot.paramMap.get('id')!);
   locker = signal<ILocker>(initialStateLocker)
   dataTableDepartament = signal<IDataTableDepartament>(initialStateDataTableDepartament)
@@ -31,7 +32,12 @@ export class ListDepartmentComponent implements OnInit {
   ) {
 
   }
+
   ngOnInit(): void {
+    this.loadTableDepartament();
+  }
+
+  loadTableDepartament() {
     this._departmentService.dataTableDepartment(this.lockerId, this.dataTableDepartament().paginate, this.dataTableDepartament().sort).pipe(take(1)).subscribe
       (
         (res) => {
@@ -39,5 +45,8 @@ export class ListDepartmentComponent implements OnInit {
           this.locker.set(res.data.locker)
         }
       )
+  }
+  reloaddataTableDepartament($event: any) {
+    this.loadTableDepartament();
   }
 }

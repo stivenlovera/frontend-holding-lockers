@@ -41,7 +41,7 @@ export class StatusLockerComponent implements OnInit {
         this.getResumenLocker()
       }
     )
-    interval(5000).pipe().subscribe(
+    /* interval(5000).pipe().subscribe(
       (res) => {
         this._lockerService.getLockerStatus(this.lockerId).pipe(take(1)).subscribe(
           (res) => {
@@ -50,7 +50,7 @@ export class StatusLockerComponent implements OnInit {
           }
         )
       }
-    )
+    ) */
   }
 
   handlerSeleted(event: SelectedProp) {

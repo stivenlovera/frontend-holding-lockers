@@ -30,9 +30,7 @@
                 ></mat-icon>
                 <a
                     class="whitespace-nowrap text-primary-500"
-                    [routerLink]="
-                        '/locker/status/' + locker().locker_id
-                    "
+                    [routerLink]="'/locker/status/' + locker().locker_id"
                     >Locker</a
                 >
             </div>
@@ -53,5 +51,9 @@
         </div>
     </div>
 </div>
-<data-table-department [dataTableDepartament]="dataTableDepartament()">
+<data-table-department
+    [lockerId]="lockerId"
+    [dataTableDepartament]="dataTableDepartament()"
+    (reloaddataTableDepartament)="reloaddataTableDepartament($event)"
+>
 </data-table-department>

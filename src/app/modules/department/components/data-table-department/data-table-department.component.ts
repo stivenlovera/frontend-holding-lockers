@@ -39,7 +39,7 @@ export class DataTableDepartmentComponent {
   handlerViewDepartament(arg0: number) {
     throw new Error('Method not implemented.');
   }
-
+  lockerId=input.required<number>()
   initialPagination = initialPagination
   dataTableDepartament = input.required<IDataTableDepartament>()
 
