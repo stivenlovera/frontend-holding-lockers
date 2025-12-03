@@ -27,7 +27,7 @@ import { LockerService } from '../../locker.service';
     MatIcon,
     MatButtonModule,
     RouterLink
-],
+  ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
   cardData = signal<CardLockerProps>(inizializeStateCardLockerProps)
   user: IUser = initialStateAuth;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  building_id: number | undefined = this._activatedRoute.snapshot.params['id'];
+  building_id: number | undefined = this._activatedRoute.snapshot.params['building'];
 
   constructor(
     private _lockerService: LockerService,
@@ -45,11 +45,13 @@ export class IndexComponent implements OnInit {
     private _userService: UserService,
     private _activatedRoute: ActivatedRoute
   ) {
+    
     this._userService.user$
       .pipe((takeUntil(this._unsubscribeAll)))
       .subscribe((user: IUser) => {
         this.user = user;
       });
+
   }
   ngOnInit(): void {
     this._lockerService.getDashboardInfo(this.building_id).pipe(take(1)).subscribe(
@@ -60,7 +62,7 @@ export class IndexComponent implements OnInit {
   }
 
   handlerCreatelocker() {
-    this._router.navigate(['locker/create'])
+    this._router.navigate(['locker/building-lockers/' + this.building_id + '/create'])
   }
 
   validateAdmin(): boolean {
@@ -72,7 +74,7 @@ export class IndexComponent implements OnInit {
   }
 
   onEdit(locker_id: number) {
-    this._router.navigate(['locker/edit/' + locker_id])
+    this._router.navigate(['locker/building-lockers/' + this.building_id + '/edit/' + locker_id])
   }
 
   onDelete(locker_id: number) {

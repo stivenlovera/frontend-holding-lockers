@@ -38,7 +38,7 @@ export class LockerComponent implements OnInit {
   typeLocker = signal<ITypeLocker[]>([])
   dataTableDoor = signal<IDataTableDoor>(initialStateDataTableDoor)
   dataTableController = signal<IDataTableController>(initialStateDataTableController)
-
+  building_id: number | undefined = this._activatedRoute.snapshot.params['building'];
   locker_id: number | undefined = this._activatedRoute.snapshot.params['id'];
 
   constructor(
@@ -48,7 +48,7 @@ export class LockerComponent implements OnInit {
     private _doorService: DoorService,
     private _snackBar: SnackBar
   ) {
-
+    this.locker.set({ ...this.locker(), building_id: this.building_id })
   }
 
   ngOnInit(): void {
@@ -87,7 +87,7 @@ export class LockerComponent implements OnInit {
     this._lockerService.lockerStore(this.locker()).subscribe((res) => {
       this._snackBar.openSnackBar(res.meta.message)
       if (res.meta.code === 200) {
-        this._router.navigate([`locker/edit/${res.data}`])
+        this._router.navigate([`locker/building-lockers/${this.building_id}/edit/${res.data}`])
       }
     })
   }

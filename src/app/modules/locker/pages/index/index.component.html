@@ -52,9 +52,9 @@
                                 (onEdit)="onEdit($event)"
                                 (onNavigate)="onNavigate($event)"
                             ></card-dashboard>
-                            @if (validateAdmin()) {
+                            } @if (validateAdmin()) {
                             <div
-                                class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer border-2 border-gray-300 border-dashed hover:bg-hover transition-colors duration-150 ease-in-out"
+                                class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer border-2 border-gray-300 border-dashed hover:bg-hover transition-colors duration-150 ease-in-out min-h-40"
                                 (click)="handlerCreatelocker()"
                             >
                                 <mat-icon
@@ -62,7 +62,7 @@
                                     [svgIcon]="'heroicons_outline:plus'"
                                 ></mat-icon>
                             </div>
-                            } }
+                            }
                         </div>
                     </ng-template>
                 </mat-tab>

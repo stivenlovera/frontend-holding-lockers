@@ -44,6 +44,7 @@ export class FormLockerComponent {
   @Output() onSubmit = new EventEmitter<ILocker>();
 
   formLocker = new FormGroup({
+    building_id: new FormControl(-1),
     locker_id: new FormControl(-1),
     type_locker_id: new FormControl(-1),
     name: new FormControl('', [Validators.required]),

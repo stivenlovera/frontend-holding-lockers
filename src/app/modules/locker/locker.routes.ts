@@ -4,18 +4,18 @@ import { IndexComponent } from './pages/index/index.component';
 import { LockerComponent } from './pages/locker/locker.component';
 
 export default [
+    {
+        path: 'building-lockers/:building/create',
+        component: LockerComponent,
+    },
+    {
+        path: 'building-lockers/:building/edit/:id',
+        component: LockerComponent,
+    },
 
     {
-        path: 'create',
-        component: LockerComponent,
-    },
-    {
-        path: 'building-lockers/:id',
+        path: 'building-lockers/:building',
         component: IndexComponent,
-    },
-    {
-        path: 'edit/:id',
-        component: LockerComponent,
     },
     {
         path: 'status/:id',
