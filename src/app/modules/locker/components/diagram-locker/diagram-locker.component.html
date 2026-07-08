@@ -1,19 +1,22 @@
 <div
-    class="grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 border-2 border-neutral-600 "
+    [class]="
+        getStyleRow() +
+        ' border-2 border-neutral-600 w-full'
+    "
 >
-    @for (door of locker().doors; track door.door_id; let index=$index) {
-    <div
-        (click)="handlerSelected(index)"
-        [matTooltip]="'Precione para ver detalles'"
-        [class]="
-            getColor(door.state) +
-            ' border-2 border-neutral-600 h-' +
-            getSize(door.door_size_id) +
-            ' w-48 flex items-center justify-center cursor-pointer ' +
-            (door.selected ? ' opacity-75 ' : '')
-        "
-    >
-        {{ door.name }}
-    </div>
+    @for (door of locker().doors; track door.door_id; let index = $index) {
+        <div
+            (click)="handlerSelected(index)"
+            [matTooltip]="'Precione para ver detalles'"
+            [class]="
+                getColor(door.state) +
+                ' border-2 border-neutral-600 h-' +
+                getSize(door.door_size_id) +
+                ' w-full flex items-center justify-center cursor-pointer ' +
+                (door.selected ? ' opacity-75 ' : '')
+            "
+        >
+            {{ door.name }} 
+        </div>
     }
 </div>

@@ -16,6 +16,7 @@ export class DiagramLockerComponent {
 
   locker = input.required<ILockerProps>()
   @Output() onSelected = new EventEmitter<SelectedProp>();
+
   constructor() {
     effect(() => {
       console.log(this.locker())
@@ -57,4 +58,14 @@ export class DiagramLockerComponent {
     }
     return colorDoor.notAvailable
   }
+
+  getStyleRow(): string {
+    const [row, column] = this.locker().size.split(",");
+    if (parseInt(row) > 12) {
+      return `grid grid-cols-${row} sm:grid-cols-${row} md:grid-cols-${row} lg:grid-cols-${row} xl:grid-cols-${row}`
+    } else {
+      return `grid grid-cols-${row} sm:grid-cols-${row} md:grid-cols-${row} lg:grid-cols-${row} xl:grid-cols-${row}`
+    }
+  }
+
 }

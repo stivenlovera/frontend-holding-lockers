@@ -58,6 +58,7 @@ export interface ILockerProps {
     macAdd: string
     address: string
     name: string
+    size: string
     state: number
     doors: IDoor[]
 }
@@ -95,6 +96,7 @@ export const inizializeStateLocker: ILockerProps = {
     macAdd: "",
     address: "",
     name: "",
+    size: "",
     state: -1,
     doors: []
 }
@@ -144,6 +146,7 @@ export const inizializeStateStatusInfoProp: StatusInfoProp = {
         macAdd: "",
         address: "",
         name: "",
+        size:"",
         state: 0,
         doors: []
     },
