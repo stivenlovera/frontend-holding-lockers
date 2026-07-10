@@ -6,6 +6,9 @@ import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IDataTableController } from 'app/modules/locker/locker.types';
+import { MatDialog } from '@angular/material/dialog';
+import { Confirmation } from 'app/utils/confirmate';
+import { ModalController } from '../modal-controller/modal-controller';
 
 @Component({
   selector: 'datatable-controler',
@@ -20,6 +23,7 @@ import { IDataTableController } from 'app/modules/locker/locker.types';
   templateUrl: './datatable-controler.component.html',
   styleUrl: './datatable-controler.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [Confirmation]
 })
 export class DatatableControlerComponent {
 
@@ -31,7 +35,10 @@ export class DatatableControlerComponent {
   initialPagination = initialPagination
   dataTableController = input.required<IDataTableController>();
 
-  constructor() {
+  constructor(
+    private _matDialog: MatDialog,
+    private _confirmation: Confirmation
+  ) {
     effect(() => {
 
     })
@@ -52,5 +59,17 @@ export class DatatableControlerComponent {
 
   handlerAddController() {
     throw new Error('Method not implemented.');
-  } 
+  }
+
+  openModal(controller_id: number) {
+    this._matDialog.open(ModalController, {
+      width: '1000px',
+      //height: '500px',
+      data: controller_id
+    }).afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        //this.reloadDataTableDoor.emit(this.dataTableDoor())
+      }
+    });
+  }
 }

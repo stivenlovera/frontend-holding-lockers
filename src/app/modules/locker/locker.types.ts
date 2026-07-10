@@ -146,7 +146,7 @@ export const inizializeStateStatusInfoProp: StatusInfoProp = {
         macAdd: "",
         address: "",
         name: "",
-        size:"",
+        size: "",
         state: 0,
         doors: []
     },
@@ -214,6 +214,9 @@ export interface ILocker {
     name: string
     address: string
     state: number
+    fila: number
+    columna: number
+    size: string
 }
 
 export const initialStateLocker: ILocker = {
@@ -223,21 +226,28 @@ export const initialStateLocker: ILocker = {
     name: '',
     address: '',
     state: -1,
-
+    fila: 0,
+    columna: 0,
+    size: ''
 }
 
 /////
 export interface IController {
     controller_id: number
+    building_id: number
     locker_id: number
     name: string
     serie: string
+    token: string
     create_at?: string
 }
+
 export const initialStateController: IController = {
     controller_id: -1,
+    building_id: -1,
     locker_id: -1,
     name: "",
     serie: "",
+    token: "",
     create_at: ""
 }

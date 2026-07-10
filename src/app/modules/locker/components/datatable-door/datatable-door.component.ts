@@ -10,7 +10,7 @@ import { IDataTableDoor, ModalDoorProp } from 'app/modules/door/door.type';
 import { MatDialog } from '@angular/material/dialog';
 import { Confirmation } from 'app/utils/confirmate';
 import { MatChipsModule } from "@angular/material/chips";
-import { ModalDoorComponent } from '../../modal-door/modal-door.component';
+import { ModalDoorComponent } from '../modal-door/modal-door.component';
 
 @Component({
   selector: 'datatable-door',

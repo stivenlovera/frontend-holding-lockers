@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, EventEmitter, inject, input, Output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, EventEmitter, inject, input, OnInit, Output, signal } from '@angular/core';
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
 import { MatIcon } from "@angular/material/icon";
 import { MatSelect } from "@angular/material/select";
@@ -9,11 +9,10 @@ import { MatRadioGroup, MatRadioButton } from "@angular/material/radio";
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { DatatableDoorComponent } from "../datatable-door/datatable-door.component";
 import { DatatableControlerComponent } from "../datatable-controler/datatable-controler.component";
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ModalDoorComponent } from '../../modal-door/modal-door.component';
+import { ModalDoorComponent } from '../modal-door/modal-door.component';
 import { IDataTableController, ILocker, initialStateDataTableController, ITypeLocker } from 'app/modules/locker/locker.types';
 import { LockerService } from 'app/modules/locker/locker.service';
 import { IDataTableDoor, initialStateDataTableDoor } from 'app/modules/door/door.type';
@@ -34,12 +33,13 @@ import { IDataTableDoor, initialStateDataTableDoor } from 'app/modules/door/door
   styleUrl: './form-locker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormLockerComponent {
+export class FormLockerComponent implements OnInit {
 
   locker = input.required<ILocker>()
   typeLockers = input.required<ITypeLocker[]>()
   dataTableDoor = signal<IDataTableDoor>(initialStateDataTableDoor)
   dataTableController = signal<IDataTableController>(initialStateDataTableController)
+  total = signal<number>(0)
 
   @Output() onSubmit = new EventEmitter<ILocker>();
 
@@ -49,7 +49,10 @@ export class FormLockerComponent {
     type_locker_id: new FormControl(-1),
     name: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
-    state: new FormControl(-1)
+    state: new FormControl(-1),
+    fila: new FormControl(0, [Validators.required]),
+    columna: new FormControl(0, [Validators.required]),
+    size: new FormControl(''),
   })
 
   constructor(
@@ -61,13 +64,11 @@ export class FormLockerComponent {
     })
   }
 
-  /* get formArrayDoor(): FormArray {
-    return this.formLocker.get('doors') as FormArray
+  ngOnInit(): void {
+    this.formLocker.valueChanges.subscribe(nuevoValor => {
+      this.total.set(nuevoValor.fila! * nuevoValor.columna!)
+    });
   }
-
-  get formArrayController(): FormArray {
-    return this.formLocker.get('controllers') as FormArray
-  } */
 
   handlerAddDoor() {
     this._matDialog.open(ModalDoorComponent, {
@@ -76,25 +77,11 @@ export class FormLockerComponent {
       data: {}
     });
 
-    /* this.formArrayDoor.push(new FormGroup({
-      controller_id: new FormControl(initialStateDoor.controller_id),
-      door_id: new FormControl(initialStateDoor.door_id),
-      door_size_id: new FormControl(initialStateDoor.door_size_id),
-      number: new FormControl(initialStateDoor.number),
-      state: new FormControl(initialStateDoor.state),
-      create_at: new FormControl(initialStateDoor.create_at)
-    })); */
   }
   handlerCloseDoor(index: number) {
-    /* this.formArrayDoor.removeAt(index); */
   }
   handlerAddController() {
-    /* this.formArrayController.push(new FormGroup({
-      controller_id: new FormControl(initialStateController.controller_id),
-      locker_id: new FormControl(initialStateController.locker_id),
-      address485: new FormControl(initialStateController.address485),
-      create_at: new FormControl(initialStateController.create_at)
-    })); */
+
   }
   handlerCloseController(index: number) {
     /* this.formArrayController.removeAt(index); */
@@ -120,4 +107,5 @@ export class FormLockerComponent {
       this.formLocker.markAllAsTouched()
     }
   }
+
 }

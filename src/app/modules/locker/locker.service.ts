@@ -3,7 +3,7 @@ import { IResponse, ISort } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { CardLockerProps, IDataTableController, IDoor, ILocker, ILockerProps, IRequerimentLocker, StatusInfoProp } from './locker.types';
+import { CardLockerProps, IController, IDataTableController, IDoor, ILocker, ILockerProps, IRequerimentLocker, StatusInfoProp } from './locker.types';
 import { IPagination } from 'app/shared/paginator.traslate';
 
 @Injectable({
@@ -92,6 +92,22 @@ export class LockerService {
     const response = this._httpClient
       .get<IResponse<any>>(
         `${environment.apiUrl}/door/open/${door_id}`,
+      );
+    return response;
+  }
+
+  public editController(controller_id: number): Observable<IResponse<any>> {
+    const response = this._httpClient
+      .get<IResponse<any>>(
+        `${environment.apiUrl}/controller/${controller_id}`,
+      );
+    return response;
+  }
+
+  public updateController(controller: IController): Observable<IResponse<any>> {
+    const response = this._httpClient
+      .put<IResponse<any>>(
+        `${environment.apiUrl}/controller/${controller.controller_id}`, controller
       );
     return response;
   }

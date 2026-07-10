@@ -1,0 +1,96 @@
+<div mat-dialog-title class="dialog-title flex justify-between">
+    <div class="text-2xl w-full mt-2 m-0 font-medium">
+        Modificar Controlador
+    </div>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+    </button>
+</div>
+<form [formGroup]="formController">
+    <mat-dialog-content class="mat-typography">
+        <div
+            class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2"
+        >
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Nombre de controlador</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Nombre de casillero'"
+                        [formControlName]="'name'"
+                    />
+                    @if (formController.get('name')?.hasError('required')) {
+                    <mat-error>Nombre requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>Serie</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'Nombre de casillero'"
+                        [formControlName]="'serie'"
+                    />
+                    @if (formController.get('serie')?.hasError('required')) {
+                    <mat-error>Nombre requerido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-span-2">
+                <div>
+                    <p class="text-lg font-medium text-neutral-700">
+                        Dispositivos
+                    </p>
+                    <p class="text-secondary mb-6">
+                        Configuracion para dispositivo movil
+                    </p>
+                </div>
+            </div>
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>LOCKER_ID</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'locker_id'"
+                        [formControlName]="'locker_id'"
+                        [readonly]="true"
+                    />
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>BUILDING_ID</mat-label>
+                    <input
+                        matInput
+                        [placeholder]="'building_id'"
+                        [formControlName]="'building_id'"
+                        [readonly]="true"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="col-span-2">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label>TOKEN</mat-label>
+                    <textarea
+                        matInput
+                        rows="6"
+                        placeholder="token"
+                        [formControlName]="'token'"
+                        [readonly]="true"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="flex justify-end">
+        <button
+            mat-flat-button
+            color="primary"
+            cdkFocusInitial
+            (click)="handlerSubmit()"
+        >
+            Guardar
+        </button>
+    </mat-dialog-actions>
+</form>

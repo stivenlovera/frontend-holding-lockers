@@ -1,9 +1,9 @@
 <div class="flex flex-col px-8 pt-10 bg-card shadow rounded overflow-hidden">
     <div class="col-span-2 flex justify-between">
         <div>
-            <p class="text-lg font-medium">Controladores</p>
+            <p class="text-lg font-medium">Controladores y Token</p>
             <p class="text-secondary mb-6">
-                Registra controladores para este locker
+                Registra controladores para este locker y token de acceso
             </p>
         </div>
         <div>
@@ -74,6 +74,7 @@
                             class="mx-1"
                             mat-icon-button
                             matTooltip="Editar"
+                            (click)="openModal(controller.controller_id)"
                         >
                             <mat-icon
                                 svgIcon="heroicons_solid:arrow-top-right-on-square"
@@ -92,14 +93,6 @@
                     </div>
                 </div>
                 }
-                <!-- <mat-paginator
-            class="bg-gray-50 border-b dark:bg-transparent absolute border-t bottom-0 inset-x-0 z-10"
-            [length]="dataTableDoor().paginate.length"
-            [pageIndex]="dataTableDoor().paginate.pageIndex"
-            [pageSize]="dataTableDoor().paginate.pageSize"
-            [pageSizeOptions]="initialPagination.PageSizeOption"
-            (page)="handlePageEvent($event)"
-        ></mat-paginator> -->
             </div>
         </div>
     </div>
