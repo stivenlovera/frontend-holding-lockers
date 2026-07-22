@@ -30,7 +30,6 @@ import { ModalDoorComponent } from '../modal-door/modal-door.component';
 })
 export class DatatableDoorComponent {
 
-
   @Output() reloadDataTableDoor = new EventEmitter<IDataTableDoor>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;

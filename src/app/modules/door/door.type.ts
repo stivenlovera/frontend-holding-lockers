@@ -66,3 +66,26 @@ export interface RequerimentsProp {
     door_sizes: ISizeDoor[]
     controllers: IController[]
 }
+
+export interface IListDepartament {
+    building_id: number
+    department_id: number
+    name: string
+    is_api:string
+    state: number
+}
+
+export interface IDataTableDepartament {
+    paginate: IPagination
+    departaments: IListDepartament[]
+    sort: ISort
+}
+
+export const initialStateDataTableDepartament: IDataTableDepartament = {
+    paginate: initialPagination,
+    sort: {
+        active: "create_at",
+        direction: "asc"
+    },
+    departaments: []
+}

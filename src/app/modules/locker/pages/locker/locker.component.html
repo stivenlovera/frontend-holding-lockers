@@ -37,27 +37,37 @@
 >
     <div class="sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2">
         <form-locker
+            [edit]="edit()"
             [locker]="locker()"
             (onSubmit)="onSubmit($event)"
             [typeLockers]="typeLocker()"
         ></form-locker>
     </div>
-    @if (locker_id!==undefined) {
-    <div class="sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2">
-        <datatable-controler
-            [dataTableController]="dataTableController()"
-            [locker_id]="locker_id"
-            (reloadDataTableController)="
-                handlerReloadDataTableController($event)
-            "
-        ></datatable-controler>
-    </div>
-    <div class="sm:col-span-2 md:col-span-2 lg:col-span-4 xl:col-span-4">
-        <datatable-door
-            [dataTableDoor]="dataTableDoor()"
-            [locker_id]="locker_id"
-            (reloadDataTableDoor)="handlerReloadDataTableDoor($event)"
-        ></datatable-door>
-    </div>
+    @if (locker_id !== undefined) {
+        <div class="md:col-span-1 lg:col-span-2 xl:col-span-2">
+            <datatable-controler
+                [dataTableController]="dataTableController()"
+                [locker_id]="locker_id"
+                (reloadDataTableController)="
+                    handlerReloadDataTableController($event)
+                "
+            ></datatable-controler>
+        </div>
+        <div class="md:col-span-1 lg:col-span-2 xl:col-span-2">
+            <datatable-door
+                [dataTableDoor]="dataTableDoor()"
+                [locker_id]="locker_id"
+                (reloadDataTableDoor)="handlerReloadDataTableDoor($event)"
+            ></datatable-door>
+        </div>
+        <div class="md:col-span-1 lg:col-span-2 xl:col-span-2">
+            <datatable-departament
+                [dataTableDepartament]="dataTableDepartament()"
+                (reloadDataTableDepartament)="
+                    handlerReloadDataTableDepartament($event)
+                "
+                (getDepartamentApi)="getDepartamentApi()"
+            ></datatable-departament>
+        </div>
     }
 </div>

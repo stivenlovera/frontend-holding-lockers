@@ -1,19 +1,18 @@
 <form
-    class="flex flex-col px-8 pt-10 bg-card shadow rounded overflow-hidden"
+    class="flex flex-col px-8 pt-10 bg-card shadow rounded"
     [formGroup]="formLocker"
 >
+    <div>
+        <p class="text-lg font-medium">Información sobre Locker</p>
+        <p class="text-secondary mb-6">
+            Informacion basica acerca del controlador
+        </p>
+    </div>
     <div
         class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2"
     >
-        <div class="col-span-2 flex justify-between">
-            <div>
-                <p class="text-lg font-medium">Información sobre Locker</p>
-                <p class="text-secondary mb-6">
-                    Informacion basica acerca del controlador
-                </p>
-            </div>
-        </div>
-        <div>
+        <!-- <div class="md:col-span-2 flex justify-between"></div> -->
+        <div class="md:col-span-2">
             <mat-form-field class="w-full" [floatLabel]="'always'">
                 <mat-label>Nombre locker</mat-label>
                 <input
@@ -26,25 +25,7 @@
                 }
             </mat-form-field>
         </div>
-        <div>
-            <mat-form-field class="w-full" [floatLabel]="'always'">
-                <mat-label>Tipo</mat-label>
-                <mat-select
-                    [placeholder]="'Tipo'"
-                    [formControlName]="'type_locker_id'"
-                >
-                    @for (typeLocker of typeLockers(); track $index) {
-                        <mat-option [value]="typeLocker.type_locker_id">{{
-                            typeLocker.name
-                        }}</mat-option>
-                    }
-                </mat-select>
-                @if (formLocker.get("type_locker_id")?.hasError("required")) {
-                    <mat-error>Tipo locker requerido</mat-error>
-                }
-            </mat-form-field>
-        </div>
-        <div class="col-span-2">
+        <div class="md:col-span-2">
             <mat-form-field class="w-full" [floatLabel]="'always'">
                 <mat-label>Direccion</mat-label>
                 <input
@@ -58,8 +39,23 @@
             </mat-form-field>
         </div>
 
-        <div class="flex gap-2">
-            <div>
+        <div class="md:col-span-2">
+            <div class="py-1">
+                <mat-slide-toggle
+                    class="justify-end"
+                    [color]="'primary'"
+                    (change)="changeModificarCasilleros($event)"
+                    labelPosition="before"
+                    [checked]="formLocker.get('modificar_casillero')?.value"
+                    [formControlName]="'modificar_casillero'"
+                >
+                    <p class="pr-2 font-bold">Modificar cantidad casilleros</p>
+                </mat-slide-toggle>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-2 w-full">
+            <div class="w-full">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                     <mat-label>Fila</mat-label>
                     <input
@@ -73,7 +69,7 @@
                     }
                 </mat-form-field>
             </div>
-            <div>
+            <div class="w-full">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                     <mat-label>Columna</mat-label>
                     <input
@@ -89,7 +85,7 @@
             </div>
         </div>
 
-        <div class="">
+        <div>
             <mat-form-field class="w-full" [floatLabel]="'always'">
                 <mat-label>Total casilleros</mat-label>
                 <input
@@ -100,22 +96,19 @@
                 />
             </mat-form-field>
         </div>
-
-        <div class="col-span-2">
-            <div
-                class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
-            >
-                <!-- <button mat-button>Cancel</button> -->
-                <button
-                    class="px-6 ml-3"
-                    mat-flat-button
-                    [color]="'primary'"
-                    type="button"
-                    (click)="handlerSubmit()"
-                >
-                    Guardar
-                </button>
-            </div>
-        </div>
+    </div>
+    <div
+        class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+    >
+        <!-- <button mat-button>Cancel</button> -->
+        <button
+            class="px-6 ml-3"
+            mat-flat-button
+            [color]="'primary'"
+            type="button"
+            (click)="handlerSubmit()"
+        >
+            Guardar
+        </button>
     </div>
 </form>

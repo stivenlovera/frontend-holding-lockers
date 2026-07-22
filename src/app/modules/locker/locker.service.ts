@@ -3,7 +3,7 @@ import { IResponse, ISort } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { CardLockerProps, IController, IDataTableController, IDoor, ILocker, ILockerProps, IRequerimentLocker, StatusInfoProp } from './locker.types';
+import { CardLockerProps, IController, IDataTableController, IDepartamento, IDoor, ILocker, ILockerProps, IRequerimentLocker, StatusInfoProp } from './locker.types';
 import { IPagination } from 'app/shared/paginator.traslate';
 
 @Injectable({
@@ -108,6 +108,31 @@ export class LockerService {
     const response = this._httpClient
       .put<IResponse<any>>(
         `${environment.apiUrl}/controller/${controller.controller_id}`, controller
+      );
+    return response;
+  }
+
+  public getCreateDepartamentApi(building_id: number): Observable<IResponse<any>> {
+    const response = this._httpClient
+      .post<IResponse<any>>(
+        `${environment.apiUrl}/department/create-by-api`, { building_id }
+      );
+    return response;
+  }
+
+  public editDepartamento(departamento_id: number): Observable<IResponse<IDepartamento>> {
+    const response = this._httpClient
+      .get<IResponse<IDepartamento>>(
+        `${environment.apiUrl}/department/${departamento_id}`
+      );
+    return response;
+  }
+
+  public updateDepartamento(departamento: IDepartamento): Observable<IResponse<any>> {
+    const response = this._httpClient
+      .put<IResponse<any>>(
+        `${environment.apiUrl}/department/${departamento.building_id}`,
+        departamento
       );
     return response;
   }

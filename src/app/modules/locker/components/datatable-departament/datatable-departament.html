@@ -1,0 +1,129 @@
+<div class="flex flex-col px-8 pt-10 bg-card shadow rounded overflow-hidden">
+    <div class="col-span-2 flex justify-between">
+        <div>
+            <p class="text-lg font-medium">Departamentos</p>
+            <p class="text-secondary mb-6">Gestione departamentos</p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class=""
+                type="button"
+                (click)="
+                    getDepartamentApi.emit()
+                "
+            >
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_outline:arrow-path'"
+                ></mat-icon>
+                <span class="ml-2">Sincronizar desde api</span>
+            </button>
+            <!-- <button
+                mat-flat-button
+                [color]="'primary'"
+                class=""
+                type="button"
+                (click)="
+                    handlerModalDepartament({
+                        departamento_id: -1,
+                        edit: true,
+                        name: 'Editar Casillero',
+                    })
+                "
+            >
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_outline:plus'"
+                ></mat-icon>
+                <span class="ml-2">Añadir departamento</span>
+            </button> -->
+        </div>
+    </div>
+    <div class="col-span-2 py-6">
+        <div class="grid">
+            <div
+                class="movement-grid grid sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50"
+                matSort
+                matSortDisableClear
+            >
+                <div
+                    class="truncate sm:truncate md:block lg:block xl:block"
+                    [mat-sort-header]="'name'"
+                    (click)="handleSorts()"
+                >
+                    Nombre
+                </div>
+                <div
+                    class="hidden sm:hidden md:block lg:block xl:block"
+                    [mat-sort-header]="'door_size_id'"
+                    (click)="handleSorts()"
+                >
+                    Estado
+                </div>
+                <div
+                    class="truncate sm:truncate md:block lg:block xl:block"
+                    [mat-sort-header]="'is_api'"
+                    (click)="handleSorts()"
+                >
+                    Proveedor
+                </div>
+                <div
+                    class="truncate sm:truncate md:block lg:block xl:block"
+                    (click)="handleSorts()"
+                >
+                    Acciones
+                </div>
+            </div>
+            <div class="flex flex-auto flex-col overflow-y-auto">
+                @for (departament of dataTableDepartament().departaments; track
+                $index) {
+                <div
+                    class="movement-grid grid items-center gap-2 py-3 px-6 md:px-8 border-b"
+                >
+                    <div class="truncate sm:block md:block lg:block xl:block">
+                        {{ departament.name }}
+                    </div>
+                    <div class="hidden md:block lg:block xl:block">
+                        @if(departament.state ){
+                        <mat-chip cdkDrag>Habilitado</mat-chip>
+                        } @else{
+                        <mat-chip cdkDrag>Deshabilitado</mat-chip>
+                        }
+                    </div>
+                    <div class="truncate sm:block md:block lg:block xl:block">
+                        {{ departament.is_api }}
+                    </div>
+                    <div class="truncate md:block lg:block xl:block">
+                        <button
+                            class="mx-1"
+                            mat-icon-button
+                            matTooltip="Editar"
+                            (click)="
+                                handlerModalDepartament({
+                                    departamento_id: departament.department_id,
+                                    edit: true,
+                                    name: 'Editar Casillero',
+                                })
+                            "
+                        >
+                            <mat-icon
+                                svgIcon="heroicons_solid:arrow-top-right-on-square"
+                            ></mat-icon>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        <mat-paginator
+            class="bg-gray-50 border-b dark:bg-transparent"
+            [length]="dataTableDepartament().paginate.length"
+            [pageIndex]="dataTableDepartament().paginate.pageIndex"
+            [pageSize]="dataTableDepartament().paginate.pageSize"
+            [pageSizeOptions]="initialPagination.PageSizeOption"
+            (page)="handlePageEvent($event)"
+        ></mat-paginator>
+    </div>
+</div>

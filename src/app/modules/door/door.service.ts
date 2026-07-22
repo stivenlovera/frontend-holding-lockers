@@ -5,7 +5,7 @@ import { IResponse, ISort } from 'app/utils/util.types';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { CardLockerProps, IController, IDataTableController, IListController } from '../locker/locker.types';
-import { IDataTableDoor, IDoor, RequerimentsProp } from './door.type';
+import { IDataTableDepartament, IDataTableDoor, IDoor, RequerimentsProp } from './door.type';
 
 
 @Injectable({
@@ -16,7 +16,6 @@ export class DoorService {
   constructor(
     private _httpClient: HttpClient
   ) { }
-
 
   public dataTableDoor(locker_id: number, { length, pageIndex, pageSize }: IPagination, { active, direction }: ISort): Observable<IResponse<IDataTableDoor>> {
     const response = this._httpClient
@@ -45,7 +44,7 @@ export class DoorService {
   public doorStore(door: IDoor): Observable<IResponse<IDoor>> {
     const response = this._httpClient
       .post<IResponse<IDoor>>(
-        `${environment.apiUrl}/door`,  door 
+        `${environment.apiUrl}/door`, door
       );
     return response;
   }
@@ -53,7 +52,7 @@ export class DoorService {
   public doorUpdate(door: IDoor): Observable<IResponse<IDoor>> {
     const response = this._httpClient
       .put<IResponse<IDoor>>(
-        `${environment.apiUrl}/door/${door.door_id}`,  door 
+        `${environment.apiUrl}/door/${door.door_id}`, door
       );
     return response;
   }
@@ -128,6 +127,22 @@ export class DoorService {
     const response = this._httpClient
       .get<IResponse<IController>>(
         `${environment.apiUrl}/door/${door_id}`,
+      );
+    return response;
+  }
+
+  public dataTableDepartament(building_id: number, { length, pageIndex, pageSize }: IPagination, { active, direction }: ISort): Observable<IResponse<IDataTableDepartament>> {
+    const response = this._httpClient
+      .post<IResponse<IDataTableDepartament>>(
+        `${environment.apiUrl}/department/data-table-manager`,
+        {
+          building_id,
+          length,
+          pageIndex,
+          pageSize,
+          active,
+          direction
+        }
       );
     return response;
   }

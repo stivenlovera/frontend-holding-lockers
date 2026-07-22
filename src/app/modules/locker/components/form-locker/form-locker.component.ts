@@ -16,6 +16,9 @@ import { ModalDoorComponent } from '../modal-door/modal-door.component';
 import { IDataTableController, ILocker, initialStateDataTableController, ITypeLocker } from 'app/modules/locker/locker.types';
 import { LockerService } from 'app/modules/locker/locker.service';
 import { IDataTableDoor, initialStateDataTableDoor } from 'app/modules/door/door.type';
+import { MatSlideToggle, MatSlideToggleChange } from "@angular/material/slide-toggle";
+import { Confirmation } from 'app/utils/confirmate';
+import { SnackBar } from 'app/utils/snack-bar';
 
 @Component({
   selector: 'form-locker',
@@ -28,13 +31,15 @@ import { IDataTableDoor, initialStateDataTableDoor } from 'app/modules/door/door
     ReactiveFormsModule,
     MatFormFieldModule,
     FormsModule,
+    MatSlideToggle
   ],
   templateUrl: './form-locker.component.html',
   styleUrl: './form-locker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [Confirmation]
 })
 export class FormLockerComponent implements OnInit {
-
+  edit = input.required<boolean>()
   locker = input.required<ILocker>()
   typeLockers = input.required<ITypeLocker[]>()
   dataTableDoor = signal<IDataTableDoor>(initialStateDataTableDoor)
@@ -53,20 +58,32 @@ export class FormLockerComponent implements OnInit {
     fila: new FormControl(0, [Validators.required]),
     columna: new FormControl(0, [Validators.required]),
     size: new FormControl(''),
+    modificar_casillero: new FormControl(false),
   })
 
   constructor(
     private _matDialog: MatDialog,
+    private _confimation: Confirmation
   ) {
     effect(() => {
-      this.loadFormController()
+      if (this.edit() === false) {
+        this.locker().modificar_casillero = true
+        this.formLocker.get('modificar_casillero')?.disable()
+      }
       this.formLocker.setValue(this.locker())
+
+      if (this.formLocker.get('modificar_casillero')?.value === false) {
+        this.formLocker.get('fila')?.disable()
+        this.formLocker.get('columna')?.disable()
+        this.formLocker.get('size')?.disable()
+      }
     })
   }
 
   ngOnInit(): void {
     this.formLocker.valueChanges.subscribe(nuevoValor => {
-      this.total.set(nuevoValor.fila! * nuevoValor.columna!)
+      const allValues = this.formLocker.getRawValue();
+      this.total.set(allValues.fila! * allValues.columna!)
     });
   }
 
@@ -78,33 +95,58 @@ export class FormLockerComponent implements OnInit {
     });
 
   }
-  handlerCloseDoor(index: number) {
-  }
-  handlerAddController() {
-
-  }
-  handlerCloseController(index: number) {
-    /* this.formArrayController.removeAt(index); */
-  }
-
-  private loadFormController() {
-    /* this.formArrayController.clear();
-    this.locker().controllers.map((c) => {
-      this.formArrayController.push(new FormGroup({
-        controller_id: new FormControl(c.controller_id),
-        locker_id: new FormControl(c.locker_id),
-        address485: new FormControl(c.address485),
-        create_at: new FormControl(c.create_at)
-      }))
-    }) */
-  }
 
   handlerSubmit() {
     if (this.formLocker.valid) {
-      const value = this.formLocker.value as ILocker
-      this.onSubmit.emit(value)
+      console.log('modificar_casillero', this.formLocker.get('modificar_casillero')?.value)
+      if (this.formLocker.get('modificar_casillero')?.value) {
+        this._confimation.confirmation({
+          title: 'Modificar los casilleros',
+          message: 'Esta seguro de Modificar los casilleros se reestablecera la configuación por defecto?',
+          icon: {
+            show: true,
+            name: "heroicons_outline:exclamation-triangle",
+            color: "success"
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: "Si",
+              color: "warn"
+            },
+            cancel: {
+              show: true,
+              label: "Cancelar"
+            }
+          },
+          dismissible: true
+        })
+          .afterClosed().subscribe((result) => {
+            if (result == 'confirmed') {
+              const value = this.formLocker.getRawValue() as ILocker
+              this.onSubmit.emit(value)
+            }
+          });
+      }
+      else {
+        const value = this.formLocker.getRawValue() as ILocker
+        this.onSubmit.emit(value)
+      }
     } else {
       this.formLocker.markAllAsTouched()
+    }
+  }
+
+  changeModificarCasilleros(event: MatSlideToggleChange) {
+    this.formLocker.get('modificar_casillero')?.setValue(event.checked)
+    if (!event.checked) {
+      this.formLocker.get('fila')?.disable()
+      this.formLocker.get('columna')?.disable()
+      this.formLocker.get('size')?.disable()
+    } else {
+      this.formLocker.get('fila')?.enable()
+      this.formLocker.get('columna')?.enable()
+      this.formLocker.get('size')?.enable()
     }
   }
 

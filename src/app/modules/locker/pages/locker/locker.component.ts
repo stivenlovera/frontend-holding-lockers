@@ -11,8 +11,10 @@ import { IDataTableController, ILocker, initialStateDataTableController, initial
 import { LockerService } from 'app/modules/locker/locker.service';
 
 import { DoorService } from 'app/modules/door/door.service';
-import { IDataTableDoor, initialStateDataTableDoor } from 'app/modules/door/door.type';
+import { IDataTableDepartament, IDataTableDoor, initialStateDataTableDepartament, initialStateDataTableDoor } from 'app/modules/door/door.type';
 import { SnackBar } from 'app/utils/snack-bar';
+import { DatatableDepartament } from "../../components/datatable-departament/datatable-departament";
+import { Confirmation } from 'app/utils/confirmate';
 
 @Component({
   selector: 'app-locker',
@@ -25,12 +27,16 @@ import { SnackBar } from 'app/utils/snack-bar';
     MatFormFieldModule,
     FormLockerComponent,
     DatatableControlerComponent,
-    DatatableDoorComponent
+    DatatableDoorComponent,
+    DatatableDepartament
   ],
   templateUrl: './locker.component.html',
   styleUrl: './locker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [SnackBar]
+  providers: [
+    SnackBar,
+    Confirmation
+  ]
 })
 export class LockerComponent implements OnInit {
 
@@ -38,17 +44,20 @@ export class LockerComponent implements OnInit {
   typeLocker = signal<ITypeLocker[]>([])
   dataTableDoor = signal<IDataTableDoor>(initialStateDataTableDoor)
   dataTableController = signal<IDataTableController>(initialStateDataTableController)
+  dataTableDepartament = signal<IDataTableDepartament>(initialStateDataTableDepartament)
   building_id: number | undefined = this._activatedRoute.snapshot.params['building'];
   locker_id: number | undefined = this._activatedRoute.snapshot.params['id'];
+  edit = signal<boolean>(false)
 
   constructor(
     private _lockerService: LockerService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _doorService: DoorService,
-    private _snackBar: SnackBar
+    private _snackBar: SnackBar,
+    private _confirmation: Confirmation
   ) {
-    this.locker.set({ ...this.locker(), building_id: this.building_id })
+    this.locker.set({ ...this.locker(), building_id: this.building_id! })
   }
 
   ngOnInit(): void {
@@ -59,9 +68,11 @@ export class LockerComponent implements OnInit {
       }
     })
     if (this.locker_id !== undefined) {
+      this.edit.set(true)
       this.onEditLocker(this.locker_id)
       this.loadDataTableController()
       this.loadDataTableDoor()
+      this.loadDataTableDepartament()
     }
   }
   ////lOCKER
@@ -79,8 +90,9 @@ export class LockerComponent implements OnInit {
       this.updateLocker()
     } else {
       this.storeLocker()
-
     }
+    this.loadDataTableDoor()
+    this.loadDataTableController()
   }
 
   storeLocker() {
@@ -104,7 +116,7 @@ export class LockerComponent implements OnInit {
   ////CONTROLLER
   loadDataTableController() {
     this._doorService.dataTableController(
-      this.locker_id,
+      this.locker_id!,
       this.dataTableController().paginate,
       this.dataTableController().sort
     ).subscribe((res) => {
@@ -117,13 +129,25 @@ export class LockerComponent implements OnInit {
   ////DOOR
   loadDataTableDoor() {
     this._doorService.dataTableDoor(
-      this.locker_id,
+      this.locker_id!,
       this.dataTableDoor().paginate,
       this.dataTableDoor().sort
     ).subscribe((res) => {
       if (res.meta.code === 200) {
         console.log('redirect')
         this.dataTableDoor.set(res.data)
+      }
+    })
+  }
+
+  loadDataTableDepartament() {
+    this._doorService.dataTableDepartament(
+      this.building_id!,
+      this.dataTableDepartament().paginate,
+      this.dataTableDepartament().sort
+    ).subscribe((res) => {
+      if (res.meta.code === 200) {
+        this.dataTableDepartament.set(res.data)
       }
     })
   }
@@ -136,5 +160,44 @@ export class LockerComponent implements OnInit {
   handlerReloadDataTableController(dataTableController: IDataTableController) {
     this.dataTableController.set(dataTableController)
     this.loadDataTableController()
+  }
+
+  handlerReloadDataTableDepartament(dataTableDepartament: IDataTableDepartament) {
+    this.dataTableDepartament.set(dataTableDepartament)
+    this.loadDataTableDepartament()
+  }
+
+  getDepartamentApi() {
+    this._confirmation.confirmation({
+      title: 'Obtener datos desde Holding',
+      message: 'Este proceso actualizara usuario y departamento',
+      icon: {
+        show: true,
+        name: "heroicons_outline:exclamation-triangle",
+        color: "success"
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: "Si",
+          color: "warn"
+        },
+        cancel: {
+          show: true,
+          label: "Cancelar"
+        }
+      },
+      dismissible: true
+    })
+      .afterClosed().subscribe((result) => {
+        if (result == 'confirmed') {
+          this._lockerService.getCreateDepartamentApi(this.building_id!,).subscribe((res) => {
+            this._snackBar.openSnackBar(res.meta.message)
+            if (res.meta.code === 200) {
+              this.loadDataTableDepartament()
+            }
+          })
+        }
+      });
   }
 }

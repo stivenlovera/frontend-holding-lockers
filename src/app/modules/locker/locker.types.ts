@@ -217,6 +217,7 @@ export interface ILocker {
     fila: number
     columna: number
     size: string
+    modificar_casillero: boolean
 }
 
 export const initialStateLocker: ILocker = {
@@ -228,7 +229,8 @@ export const initialStateLocker: ILocker = {
     state: -1,
     fila: 0,
     columna: 0,
-    size: ''
+    size: '',
+    modificar_casillero: false
 }
 
 /////
@@ -239,7 +241,6 @@ export interface IController {
     name: string
     serie: string
     token: string
-    create_at?: string
 }
 
 export const initialStateController: IController = {
@@ -249,5 +250,32 @@ export const initialStateController: IController = {
     name: "",
     serie: "",
     token: "",
-    create_at: ""
+}
+
+export interface IDepartamento {
+    department_id: number
+    building_id: number
+    name: string
+    is_api: string
+    id_ref: string
+    state: number
+    users: IUser[]
+}
+
+export interface IUser {
+    user_id: number
+    department_id: number
+    name: string
+    celular: string
+    state: string
+}
+
+export const initialStateDepartament: IDepartamento = {
+    department_id: 0,
+    building_id: 0,
+    name: '',
+    is_api: '',
+    id_ref: '',
+    state: 0,
+    users: []
 }
