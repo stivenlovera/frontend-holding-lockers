@@ -57,7 +57,6 @@
                         [multiple]="true"
                         [placeholder]="'roles'"
                         [formControlName]="'roles'"
-                        (selectionChange)="checkRol()"
                     >
                         @for (rol of roles(); track $index) {
                         <mat-option [value]="rol.rol_id">{{
@@ -70,7 +69,7 @@
                     }
                 </mat-form-field>
             </div>
-            @if(checkRol()){
+            <!-- @if(checkRol()){ -->
             <div class="col-span-2">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                     <mat-label>Seleccione edificio</mat-label>
@@ -94,7 +93,7 @@
                 <hr class="m-0" />
             </div>
 
-            } @if (data.edit) {
+            <!-- } --> @if (data.edit) {
             <div class="col-span-2">
                 <label class="text-neutral-900">Resetear contraseña</label>
                 <br class="" />

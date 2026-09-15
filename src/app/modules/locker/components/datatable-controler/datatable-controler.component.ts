@@ -9,6 +9,8 @@ import { IDataTableController } from 'app/modules/locker/locker.types';
 import { MatDialog } from '@angular/material/dialog';
 import { Confirmation } from 'app/utils/confirmate';
 import { ModalController } from '../modal-controller/modal-controller';
+import { LockerService } from '../../locker.service';
+import { SnackBar } from 'app/utils/snack-bar';
 
 @Component({
   selector: 'datatable-controler',
@@ -37,7 +39,9 @@ export class DatatableControlerComponent {
 
   constructor(
     private _matDialog: MatDialog,
-    private _confirmation: Confirmation
+    private _confirmation: Confirmation,
+    private _lockerService: LockerService,
+    private _snackBar: SnackBar
   ) {
     effect(() => {
 
@@ -57,9 +61,6 @@ export class DatatableControlerComponent {
     this.reloadDataTableController.emit(this.dataTableController())
   }
 
-  handlerAddController() {
-    throw new Error('Method not implemented.');
-  }
 
   openModal(controller_id: number) {
     this._matDialog.open(ModalController, {
@@ -72,4 +73,15 @@ export class DatatableControlerComponent {
       }
     });
   }
+
+  handlerUpdateDatabase(locker_id: number) {
+    try {
+      this._lockerService.updateDataBaseLocker(locker_id).subscribe((res) => {
+        this._snackBar.openSnackBar('Base de datos actualizada correctamente');
+      });
+    } catch (error) {
+      this._snackBar.openSnackBar('Error al actualizar la base de datos');
+    }
+  }
+
 }
