@@ -279,3 +279,9 @@ export const initialStateDepartament: IDepartamento = {
     state: 0,
     users: []
 }
+export interface ISincronizacionDepartamentos {
+    actualizados: number;
+    creados: number;
+    eliminados: number;
+    desactivados: number;
+}

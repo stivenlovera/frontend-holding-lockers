@@ -3,7 +3,7 @@ import { IResponse, ISort } from 'app/utils/util.types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { CardLockerProps, IController, IDataTableController, IDepartamento, IDoor, ILocker, ILockerProps, IRequerimentLocker, StatusInfoProp } from './locker.types';
+import { CardLockerProps, IController, IDataTableController, IDepartamento, IDoor, ILocker, ILockerProps, IRequerimentLocker, ISincronizacionDepartamentos, StatusInfoProp } from './locker.types';
 import { IPagination } from 'app/shared/paginator.traslate';
 
 @Injectable({
@@ -112,9 +112,9 @@ export class LockerService {
     return response;
   }
 
-  public getCreateDepartamentApi(building_id: number): Observable<IResponse<any>> {
+  public getCreateDepartamentApi(building_id: number): Observable<IResponse<ISincronizacionDepartamentos>> {
     const response = this._httpClient
-      .post<IResponse<any>>(
+      .post<IResponse<ISincronizacionDepartamentos>>(
         `${environment.apiUrl}/department/create-by-api`, { building_id }
       );
     return response;
