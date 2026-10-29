@@ -6,6 +6,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
 import { MovementService } from '../../movement.service';
 import { IDetailedActivity, initialStateDetailedActivity } from '../../movement.type';
+import { UtcDatePipe } from 'app/shared/utc-date.pipe';
 
 @Component({
   selector: 'modal-detailed-activity',
@@ -17,7 +18,8 @@ import { IDetailedActivity, initialStateDetailedActivity } from '../../movement.
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    UtcDatePipe
   ],
   templateUrl: './modal-detailed-activity.html',
   styleUrl: './modal-detailed-activity.css',

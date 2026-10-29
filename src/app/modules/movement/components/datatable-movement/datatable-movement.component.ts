@@ -8,6 +8,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatChip } from "@angular/material/chips";
 import { MatDialog } from '@angular/material/dialog';
 import { ModalDetailedActivity } from '../modal-detailed-activity/modal-detailed-activity';
+import { UtcDatePipe } from 'app/shared/utc-date.pipe';
 
 @Component({
   selector: 'datatable-movement',
@@ -17,7 +18,8 @@ import { ModalDetailedActivity } from '../modal-detailed-activity/modal-detailed
     MatButtonModule,
     MatSortModule,
     MatPaginatorModule,
-    MatChip
+    MatChip,
+    UtcDatePipe
   ],
   templateUrl: './datatable-movement.component.html',
   styleUrl: './datatable-movement.component.css',
