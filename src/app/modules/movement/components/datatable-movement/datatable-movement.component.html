@@ -77,7 +77,7 @@
                 </mat-chip>
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
-                {{ movement.create_at }}
+                {{ movement.create_at | utcDate }}
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
                 <mat-chip class="" cdkDrag>

@@ -33,7 +33,7 @@ export class ListMovementComponent implements OnInit {
   }
 
   handlerDataTableMovement(dataTableMovement: IDataTableMovement) {
-    this.movementService.getDataTableMovement(1, dataTableMovement.paginate, dataTableMovement.sort).pipe(take(1)).subscribe(
+    this.movementService.getDataTableMovement(this.lockerId, dataTableMovement.paginate, dataTableMovement.sort).pipe(take(1)).subscribe(
       res => {
         this.dataTableMovement.set(res.data)
       }

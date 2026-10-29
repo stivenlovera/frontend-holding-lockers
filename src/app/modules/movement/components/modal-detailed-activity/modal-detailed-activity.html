@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     <p><strong>Fecha registro:</strong></p>
-                    <p>{{detailedActivity().entrada.create_at}}</p>
+                    <p>{{detailedActivity().entrada.create_at | utcDate}}</p>
                 </div>
                 <div>
                     <p><strong>Notificacion holding:</strong></p>
@@ -57,7 +57,7 @@
                 </div>
                 <div>
                     <p><strong>Fecha registro:</strong></p>
-                    <p>{{detailedActivity().salida.create_at}}</p>
+                    <p>{{detailedActivity().salida.create_at | utcDate}}</p>
                 </div>
                 <div>
                     <p><strong>Notificacion Finalizada:</strong></p>

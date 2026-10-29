@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, Component, effect, EventEmitter, input, Output
 import { IDoor, colorDoor, ILockerProps, initialStateSelected, SelectedProp } from '../../locker.types';
 import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
+import { UtcDatePipe } from 'app/shared/utc-date.pipe';
 
 @Component({
   selector: 'detail-door',
   standalone: true,
   imports: [
     MatIcon,
-    MatButtonModule
+    MatButtonModule,
+    UtcDatePipe
   ],
   templateUrl: './detail-door.component.html',
   styleUrl: './detail-door.component.css',
