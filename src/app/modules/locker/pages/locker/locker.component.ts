@@ -170,7 +170,7 @@ export class LockerComponent implements OnInit {
   getDepartamentApi() {
     this._confirmation.confirmation({
       title: 'Obtener datos desde Holding',
-      message: 'Este proceso actualizara usuario y departamento',
+      message: 'Los departamentos y residentes del edificio se reemplazarán por los de Holding. Los que ya no existan se eliminarán; si tienen movimientos, se desactivarán para conservar su historial.',
       icon: {
         show: true,
         name: "heroicons_outline:exclamation-triangle",
@@ -192,9 +192,14 @@ export class LockerComponent implements OnInit {
       .afterClosed().subscribe((result) => {
         if (result == 'confirmed') {
           this._lockerService.getCreateDepartamentApi(this.building_id!,).subscribe((res) => {
-            this._snackBar.openSnackBar(res.meta.message)
             if (res.meta.code === 200) {
+              const { actualizados, creados, eliminados, desactivados } = res.data
+              this._snackBar.openSnackBar(
+                `${res.meta.message}: ${actualizados} actualizados, ${creados} creados, ${eliminados} eliminados, ${desactivados} desactivados`
+              )
               this.loadDataTableDepartament()
+            } else {
+              this._snackBar.openSnackBar(res.meta.message)
             }
           })
         }

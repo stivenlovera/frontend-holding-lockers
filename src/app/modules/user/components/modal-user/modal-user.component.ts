@@ -65,7 +65,7 @@ export class ModalUserComponent {
     }
     this.requirement()
     this.handlerChangeResetPassword()
-    this.checkRol()
+    /* this.checkRol() */
   }
 
   handlerSubmit() {
@@ -130,7 +130,7 @@ export class ModalUserComponent {
     }
   }
 
-  checkRol() {
+/*   checkRol() {
     const roles = this.formUser.get('roles').value as number[]
     const rol = roles.filter((rol) => rol === 2 || rol === 1)
     if (rol.length > 1) {
@@ -148,5 +148,5 @@ export class ModalUserComponent {
         return true
       }
     }
-  }
+  } */
 }

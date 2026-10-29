@@ -6,22 +6,6 @@
                 Registra controladores para este locker y token de acceso
             </p>
         </div>
-        <div>
-            <!-- <button
-                mat-flat-button
-                [color]="'primary'"
-                class=""
-                type="button"
-                (click)="handlerAddController()"
-                [disabled]="true"
-            >
-                <mat-icon
-                    class="icon-size-5"
-                    [svgIcon]="'heroicons_outline:plus'"
-                ></mat-icon>
-                <span class="ml-2">Nuevo controlador</span>
-            </button> -->
-        </div>
     </div>
     <div class="col-span-2 pb-6">
         <div class="grid">
@@ -52,35 +36,37 @@
                 </div>
             </div>
             <div class="flex flex-auto flex-col overflow-y-auto">
-                @for (controller of dataTableController().controllers; track
-                $index) {
-                <div
-                    class="movement-grid grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 items-center gap-2 py-3 px-6 md:px-8 border-b"
-                >
+                @for (
+                    controller of dataTableController().controllers;
+                    track $index
+                ) {
                     <div
-                        class="truncate xs:truncate sm:block md:block lg:block xl:block"
+                        class="movement-grid grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 items-center gap-2 py-3 px-6 md:px-8 border-b"
                     >
-                        {{ controller.name }}
-                    </div>
-                    <div
-                        class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-                    >
-                        {{ controller.serie }}
-                    </div>
-                    <div
-                        class="truncate xs:truncate md:block lg:block xl:block"
-                    >
-                        <button
-                            class="mx-1"
-                            mat-icon-button
-                            matTooltip="Editar"
-                            (click)="openModal(controller.controller_id)"
+                        <div
+                            class="truncate xs:truncate sm:block md:block lg:block xl:block"
                         >
-                            <mat-icon
-                                svgIcon="heroicons_solid:arrow-top-right-on-square"
-                            ></mat-icon>
-                        </button>
-                        <!-- <button
+                            {{ controller.name }}
+                        </div>
+                        <div
+                            class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
+                        >
+                            {{ controller.serie }}
+                        </div>
+                        <div
+                            class="truncate xs:truncate md:block lg:block xl:block"
+                        >
+                            <button
+                                class="mx-1"
+                                mat-icon-button
+                                matTooltip="Editar"
+                                (click)="openModal(controller.controller_id)"
+                            >
+                                <mat-icon
+                                    svgIcon="heroicons_solid:arrow-top-right-on-square"
+                                ></mat-icon>
+                            </button>
+                            <!-- <button
                             class="mx-1"
                             mat-icon-button
                             [color]="'warn'"
@@ -90,10 +76,27 @@
                                 svgIcon="heroicons_outline:trash"
                             ></mat-icon>
                         </button> -->
+                        </div>
                     </div>
-                </div>
                 }
             </div>
+        </div>
+    </div>
+    <div class="col-span-2 pb-6">
+        <div>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class=""
+                type="button"
+                (click)="handlerUpdateDatabase(locker_id()!)"
+            >
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_outline:plus'"
+                ></mat-icon>
+                <span class="ml-2">Actualizar base de datos</span>
+            </button>
         </div>
     </div>
 </div>
