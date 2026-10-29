@@ -1,0 +1,61 @@
+<div mat-dialog-title class="dialog-title flex justify-between">
+    <div class="text-2xl w-full mt-2 m-0 font-medium">
+        Abrir casillero {{ door.name }}
+    </div>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+    </button>
+</div>
+<form [formGroup]="form">
+    <mat-dialog-content class="mat-typography">
+        @if (pendiente) {
+        <p class="text-secondary mb-4">
+            El casillero tiene una entrega pendiente.
+        </p>
+        }
+        <mat-radio-group class="flex flex-col gap-2 mb-4" formControlName="tipo">
+            <mat-radio-button value="mantenimiento">
+                <strong>Mantenimiento</strong>
+                <span class="text-secondary"> — solo abre; la entrega y el código siguen válidos</span>
+            </mat-radio-button>
+            <mat-radio-button value="limpieza">
+                <strong>Limpieza</strong>
+                <span class="text-secondary"> — solo abre; la entrega y el código siguen válidos</span>
+            </mat-radio-button>
+            @if (pendiente) {
+            <mat-radio-button value="intervencion">
+                <strong>Intervención (liberar)</strong>
+                <span class="text-secondary"> — da la entrega por cerrada, libera el casillero y anula el código del residente</span>
+            </mat-radio-button>
+            }
+        </mat-radio-group>
+        @if (form.controls.tipo.touched && form.controls.tipo.hasError('required')) {
+        <mat-error class="mb-4">Seleccione el tipo de apertura</mat-error>
+        }
+        <mat-form-field class="w-full" [floatLabel]="'always'">
+            <mat-label>Motivo</mat-label>
+            <textarea
+                matInput
+                rows="3"
+                maxlength="255"
+                placeholder="Ej.: cambio de cerradura, paquete retirado por conserjería"
+                formControlName="observacion"
+            ></textarea>
+            @if (form.controls.observacion.hasError('required')) {
+            <mat-error>Motivo requerido</mat-error>
+            }
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="flex justify-end">
+        <button mat-stroked-button type="button" mat-dialog-close>Cancelar</button>
+        <button
+            mat-flat-button
+            type="button"
+            [color]="form.controls.tipo.value === 'intervencion' ? 'warn' : 'primary'"
+            [disabled]="sending()"
+            (click)="handlerSubmit()"
+        >
+            Abrir
+        </button>
+    </mat-dialog-actions>
+</form>

@@ -285,3 +285,6 @@ export interface ISincronizacionDepartamentos {
     eliminados: number;
     desactivados: number;
 }
+
+/** Tipos de apertura manual desde el panel (tabla door_event). */
+export type TipoApertura = 'mantenimiento' | 'limpieza' | 'intervencion';

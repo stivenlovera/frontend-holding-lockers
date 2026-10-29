@@ -8,6 +8,8 @@ import { interval, take } from 'rxjs';
 import { MatIcon } from "@angular/material/icon";
 import { SnackBar } from 'app/utils/snack-bar';
 import { Confirmation } from 'app/utils/confirmate';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalOpenDoor } from '../../components/modal-open-door/modal-open-door';
 
 @Component({
   selector: 'status-locker',
@@ -29,18 +31,14 @@ export class StatusLockerComponent implements OnInit {
   constructor(
     private _lockerService: LockerService,
     private _route: ActivatedRoute,
-    private _snackBar: SnackBar
+    private _snackBar: SnackBar,
+    private _dialog: MatDialog
   ) {
 
   }
 
   ngOnInit(): void {
-    this._lockerService.getLockerStatus(this.lockerId).pipe(take(1)).subscribe(
-      (res) => {
-        this.statusInfo.set(res.data)
-        this.getResumenLocker()
-      }
-    )
+    this.loadStatus()
     /* interval(5000).pipe().subscribe(
       (res) => {
         this._lockerService.getLockerStatus(this.lockerId).pipe(take(1)).subscribe(
@@ -51,6 +49,15 @@ export class StatusLockerComponent implements OnInit {
         )
       }
     ) */
+  }
+
+  loadStatus() {
+    this._lockerService.getLockerStatus(this.lockerId).pipe(take(1)).subscribe(
+      (res) => {
+        this.statusInfo.set(res.data)
+        this.getResumenLocker()
+      }
+    )
   }
 
   handlerSeleted(event: SelectedProp) {
@@ -69,10 +76,12 @@ export class StatusLockerComponent implements OnInit {
   }
 
   handlerOpenDoor(door: IDoor) {
-    this._lockerService.openLocker(door.door_id).subscribe(
-      (res) => {
-        this._snackBar.openSnackBar(res.meta.message)
-      }
-    );
+    // Toda apertura desde el panel pide tipo y motivo y queda registrada en door_event.
+    this._dialog.open(ModalOpenDoor, { data: door, width: '560px' })
+      .afterClosed().subscribe((abierto) => {
+        if (abierto) {
+          this.loadStatus()
+        }
+      })
   }
 }
