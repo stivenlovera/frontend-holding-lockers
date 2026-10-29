@@ -75,6 +75,33 @@
             <p class="p-4">NO REGISTRADO</p>
             }
         </div>
+        @if (detailedActivity().intervenido; as intervenido) {
+        <h4 class="text-lg font-bold">Intervenido</h4>
+        <div class="rounded-md border-2 border-zinc-300 p-2">
+            <div class="grid grid-cols-3 gap-2">
+                <div>
+                    <p><strong>Usuario:</strong></p>
+                    <p>{{intervenido.usuario ?? '-'}}</p>
+                </div>
+                <div>
+                    <p><strong>Casillero:</strong></p>
+                    <p>{{intervenido.door}}</p>
+                </div>
+                <div>
+                    <p><strong>Fecha registro:</strong></p>
+                    <p>{{intervenido.create_at | utcDate}}</p>
+                </div>
+                <div>
+                    <p><strong>Notificacion holding:</strong></p>
+                    <p>{{intervenido.status_integrate===0 ?'No' :'Si'}}</p>
+                </div>
+                <div class="col-span-2">
+                    <p><strong>Motivo:</strong></p>
+                    <p>{{intervenido.observacion}}</p>
+                </div>
+            </div>
+        </div>
+        }
     </div>
 </mat-dialog-content>
 <mat-dialog-actions class="flex justify-end">

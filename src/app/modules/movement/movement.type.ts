@@ -56,11 +56,17 @@ export const initialStateActivity: IActivity = {
     type_movement: "",
     create_at: ""
 }
+export interface IInterventionActivity extends IActivity {
+    usuario: string | null
+    observacion: string | null
+}
 export interface IDetailedActivity {
     entrada: IActivity | null
     salida: IActivity | null
+    intervenido: IInterventionActivity | null
 }
 export const initialStateDetailedActivity: IDetailedActivity = {
     entrada: initialStateActivity,
-    salida: initialStateActivity
+    salida: initialStateActivity,
+    intervenido: null
 }
