@@ -286,5 +286,8 @@ export interface ISincronizacionDepartamentos {
     desactivados: number;
 }
 
-/** Tipos de apertura manual desde el panel (tabla door_event). */
-export type TipoApertura = 'mantenimiento' | 'limpieza' | 'intervencion';
+/**
+ * Tipos de apertura manual desde el panel (tabla door_event).
+ * mantenimiento (incluye limpieza): sin entrega pendiente. intervencion: con entrega pendiente.
+ */
+export type TipoApertura = 'mantenimiento' | 'intervencion';
