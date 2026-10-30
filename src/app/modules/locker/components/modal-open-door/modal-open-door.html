@@ -8,29 +8,20 @@
 </div>
 <form [formGroup]="form">
     <mat-dialog-content class="mat-typography">
-        @if (pendiente) {
-        <p class="text-secondary mb-4">
-            El casillero tiene una entrega pendiente.
-        </p>
-        }
         <mat-radio-group class="flex flex-col gap-2 mb-4" formControlName="tipo">
-            <mat-radio-button value="mantenimiento">
-                <strong>Mantenimiento</strong>
-                <span class="text-secondary"> — solo abre; la entrega y el código siguen válidos</span>
+            <mat-radio-button value="mantenimiento" [disabled]="pendiente">
+                <strong>Mantenimiento / limpieza</strong>
+                <span class="text-secondary"> — solo abre el casillero</span>
             </mat-radio-button>
-            <mat-radio-button value="limpieza">
-                <strong>Limpieza</strong>
-                <span class="text-secondary"> — solo abre; la entrega y el código siguen válidos</span>
-            </mat-radio-button>
-            @if (pendiente) {
-            <mat-radio-button value="intervencion">
+            <mat-radio-button value="intervencion" [disabled]="!pendiente">
                 <strong>Intervención (liberar)</strong>
                 <span class="text-secondary"> — da la entrega por cerrada, libera el casillero y anula el código del residente</span>
             </mat-radio-button>
-            }
         </mat-radio-group>
-        @if (form.controls.tipo.touched && form.controls.tipo.hasError('required')) {
-        <mat-error class="mb-4">Seleccione el tipo de apertura</mat-error>
+        @if (pendiente) {
+        <p class="text-secondary mb-4">
+            El casillero tiene una entrega pendiente: solo se puede abrir como intervención.
+        </p>
         }
         <mat-form-field class="w-full" [floatLabel]="'always'">
             <mat-label>Motivo</mat-label>
@@ -38,7 +29,7 @@
                 matInput
                 rows="3"
                 maxlength="255"
-                placeholder="Ej.: cambio de cerradura, paquete retirado por conserjería"
+                [placeholder]="pendiente ? 'Ej.: paquete retirado por conserjería' : 'Ej.: limpieza, cambio de cerradura'"
                 formControlName="observacion"
             ></textarea>
             @if (form.controls.observacion.hasError('required')) {

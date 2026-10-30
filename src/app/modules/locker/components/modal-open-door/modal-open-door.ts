@@ -12,9 +12,10 @@ import { IDoor, TipoApertura } from '../../locker.types';
 import { SnackBar } from 'app/utils/snack-bar';
 
 /**
- * Apertura manual de un casillero desde el panel, con tipo y motivo (door_event).
- * "Intervención" solo se ofrece si el casillero tiene una entrega pendiente: la libera
- * e invalida el código del residente. Se cierra con true si la apertura se registró.
+ * Apertura manual de un casillero desde el panel, con motivo (door_event).
+ * Sin entrega pendiente solo se ofrece "Mantenimiento / limpieza"; con entrega
+ * pendiente solo "Intervención", que la cierra, libera el casillero e invalida el
+ * código del residente. Se cierra con true si la apertura se registró.
  */
 @Component({
   selector: 'app-modal-open-door',
@@ -43,7 +44,7 @@ export class ModalOpenDoor {
   sending = signal<boolean>(false)
 
   form = new FormGroup({
-    tipo: new FormControl<TipoApertura | null>(null, [Validators.required]),
+    tipo: new FormControl<TipoApertura>(this.pendiente ? 'intervencion' : 'mantenimiento', [Validators.required]),
     observacion: new FormControl('', [Validators.required, Validators.maxLength(255)]),
   })
 
