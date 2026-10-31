@@ -1,6 +1,6 @@
 <div class="grid">
     <div
-        class="movement-grid grid xs:grid-cols-7 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
+        class="movement-grid grid xs:grid-cols-6 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 z-10 sticky top-0 gap-2 py-4 px-6 md:px-8 shadow font-semibold text-secondary bg-gray-50 dark:dark:bg-neutral-900 dark:bg-opacity-5"
         matSort
         matSortDisableClear
     >
@@ -20,31 +20,24 @@
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-            [mat-sort-header]="'status_integrate'"
+            [mat-sort-header]="'holding_enviada'"
             (click)="handleSorts()"
         >
-            Sincronizacion Holding
+            Estado notificacion Holding
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-            [mat-sort-header]="'status_notificate'"
+            [mat-sort-header]="'whatsapp_enviado'"
             (click)="handleSorts()"
         >
-            Sincronizacion Whatsapp
+            Notificacion por Whatsapp
         </div>
         <div
             class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-            [mat-sort-header]="'create_at'"
+            [mat-sort-header]="'fecha_entrega'"
             (click)="handleSorts()"
         >
             Fecha Registro
-        </div>
-        <div
-            class="hidden xs:hidden sm:hidden md:block lg:block xl:block"
-            [mat-sort-header]="'state'"
-            (click)="handleSorts()"
-        >
-            Estado
         </div>
         <div
             class="truncate xs:truncate sm:truncate md:block lg:block xl:block"
@@ -56,7 +49,7 @@
     <div class="flex flex-auto flex-col overflow-y-auto">
         @for (movement of dataTableMovement().movements; track $index) {
         <div
-            class="movement-grid grid xs:grid-cols-7 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 items-center gap-2 py-3 px-6 md:px-8 border-b"
+            class="movement-grid grid xs:grid-cols-6 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 items-center gap-2 py-3 px-6 md:px-8 border-b"
         >
             <div
                 class="truncate xs:truncate sm:block md:block lg:block xl:block"
@@ -66,23 +59,37 @@
             <div class="hidden xs:hidden sm:hidden md:block lg:block xl:block">
                 {{ movement.casillero }}
             </div>
-            <div class="hidden xs:hidden md:block lg:block xl:block">
-                <mat-chip class="" cdkDrag>
-                    {{ movement.status_integrate }}
+            <div class="hidden xs:hidden md:flex lg:flex xl:flex flex-wrap gap-1">
+                <mat-chip
+                    [class]="movement.holding_enviada === 1 ? 'chip-ok' : 'chip-error'"
+                    [title]="movement.holding_enviada === 1 ? 'Entrega notificada a Holding' : 'La entrega no se notificó a Holding'"
+                >
+                    Enviada
+                </mat-chip>
+                <mat-chip
+                    [class]="movement.holding_confirmada === 1 ? 'chip-ok' : movement.cerrado === 1 ? 'chip-error' : 'chip-pending'"
+                    [title]="movement.holding_confirmada === 1 ? 'Retiro notificado a Holding' : movement.cerrado === 1 ? 'El retiro no se notificó a Holding' : 'Pendiente de retiro'"
+                >
+                    Confirmada
                 </mat-chip>
             </div>
             <div class="hidden xs:hidden md:block lg:block xl:block">
-                <mat-chip class="" cdkDrag>
-                    {{ movement.status_integrate === '0' ? "No" : "Si" }}
+                <mat-chip
+                    [class]="movement.whatsapp_enviado === 1 ? 'chip-ok' : 'chip-error'"
+                    [title]="movement.whatsapp_enviado === 1 ? 'Código enviado al residente por WhatsApp' : 'No se pudo enviar el WhatsApp'"
+                >
+                    {{ movement.whatsapp_enviado === 1 ? "Enviada" : "No enviada" }}
                 </mat-chip>
             </div>
-            <div class="hidden xs:hidden md:block lg:block xl:block">
-                {{ movement.create_at | utcDate }}
-            </div>
-            <div class="hidden xs:hidden md:block lg:block xl:block">
-                <mat-chip class="" cdkDrag>
-                    {{ movement.state }}
-                </mat-chip>
+            <div class="hidden xs:hidden md:flex lg:flex xl:flex flex-col text-sm">
+                <span>
+                    <span class="text-secondary">Entrega:</span>
+                    <span class="font-bold">{{ movement.fecha_entrega | utcDate }}</span>
+                </span>
+                <span>
+                    <span class="text-secondary">{{ movement.tipo_cierre === 4 ? "Intervenido:" : "Retiro:" }}</span>
+                    <span class="font-bold">{{ movement.fecha_cierre ? (movement.fecha_cierre | utcDate) : "Pendiente" }}</span>
+                </span>
             </div>
             <div class="truncate xs:truncate md:block lg:block xl:block">
                 <button

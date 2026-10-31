@@ -74,6 +74,8 @@ export interface IDoor {
     selected: boolean
     tipo_movimiento: string
     update_at: string
+    /** Departamento del pedido que ocupa el casillero (null si no hay entrega pendiente). */
+    departamento: string | null
 }
 
 export const sizeDoor = {

@@ -13,7 +13,7 @@ export interface IDataTableMovement {
 export const initialStateDataTableMovement: IDataTableMovement = {
     paginate: initialPagination,
     sort: {
-        active: "create_at",
+        active: "fecha_entrega",
         direction: "asc"
     },
     movements: [],
@@ -36,6 +36,20 @@ export interface IListMovement {
     status_notificate: number
     state: string
     create_at: string
+    /** 1 si la entrega (allocated) se notificó a Holding. */
+    holding_enviada: number
+    /** 1 si el retiro o la intervención (collected) se notificó a Holding. */
+    holding_confirmada: number
+    /** 1 si la entrega ya tiene retiro o intervención. */
+    cerrado: number
+    /** 1 si la notificación por WhatsApp de la entrega se envió. */
+    whatsapp_enviado: number
+    /** Fecha (UTC) de la entrega. */
+    fecha_entrega: string
+    /** Fecha (UTC) del retiro o la intervención; null si sigue pendiente. */
+    fecha_cierre: string | null
+    /** 2 = retiro, 4 = intervención; null si sigue pendiente. */
+    tipo_cierre: number | null
 }
 
 export interface IActivity {

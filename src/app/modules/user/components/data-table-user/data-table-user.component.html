@@ -79,7 +79,7 @@
             </div>
             <div class="hidden xs:hidden sm:hidden md:block lg:block xl:block">
                 @for (rol of rolesToArray(user.roles ); track $index) {
-                <mat-chip class="mx-1" cdkDrag>{{ rol }}</mat-chip>
+                <mat-chip class="mx-1 chip-neutral" cdkDrag>{{ rol }}</mat-chip>
                 }
             </div>
             <div class="truncate xs:truncate md:block lg:block xl:block">

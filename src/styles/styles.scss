@@ -2,3 +2,34 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+
+/* Chips de estado: compactos, fondo blanco y borde del color del estado.
+   Uso: <mat-chip class="chip-ok">...</mat-chip> (chip-ok | chip-error | chip-pending | chip-neutral) */
+.mat-mdc-chip {
+    &.chip-ok,
+    &.chip-error,
+    &.chip-pending,
+    &.chip-neutral {
+        --mdc-chip-container-height: 22px;
+        --mdc-chip-elevated-container-color: #ffffff;
+        --mdc-chip-label-text-size: 11px;
+        --mdc-chip-label-text-weight: 600;
+        border: 1.5px solid var(--mdc-chip-label-text-color);
+    }
+
+    &.chip-ok {
+        --mdc-chip-label-text-color: #16a34a;
+    }
+
+    &.chip-error {
+        --mdc-chip-label-text-color: #dc2626;
+    }
+
+    &.chip-pending {
+        --mdc-chip-label-text-color: #9ca3af;
+    }
+
+    &.chip-neutral {
+        --mdc-chip-label-text-color: #475569;
+    }
+}

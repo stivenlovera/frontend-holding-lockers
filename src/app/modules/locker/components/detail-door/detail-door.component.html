@@ -89,6 +89,26 @@
         </div>
         <div class="flex flex-row items-center justify-between py-4 px-0.5">
             <div class="flex flex-col">
+                <div class="font-medium">Departamento del pedido:</div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3"
+                >
+                    <div class="flex items-center">
+                        <div class="ml-0.5 text-md text-secondary">
+                            {{
+                                this.locker().doors[this.selected().index]
+                                    .departamento ?? "Sin pedido"
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button mat-icon-button>
+                <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+            </button>
+        </div>
+        <div class="flex flex-row items-center justify-between py-4 px-0.5">
+            <div class="flex flex-col">
                 <div class="font-medium">Ultimo movimiento:</div>
                 <div
                     class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3"

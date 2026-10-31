@@ -1,3 +1,5 @@
 :host {
   display: block;
+  /* El contenido del diálogo usa por defecto el color secundario (gris) del tema. */
+  --mdc-dialog-supporting-text-color: #000000;
 }
