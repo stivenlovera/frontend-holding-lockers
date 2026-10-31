@@ -8,15 +8,32 @@
 </div>
 <form [formGroup]="form">
     <mat-dialog-content class="mat-typography">
+        <div class="grid grid-cols-3 gap-2 rounded-md border-2 border-zinc-300 p-2 mb-4">
+            <div>
+                <p><strong>Departamento:</strong></p>
+                <p>{{ door.departamento ?? 'Sin pedido' }}</p>
+            </div>
+            <div>
+                <p><strong>Tamaño:</strong></p>
+                <p>{{ door.name_size }}</p>
+            </div>
+            <div>
+                <p><strong>Estado:</strong></p>
+                <p>{{ door.state === 1 ? 'Libre' : 'Ocupado' }}</p>
+            </div>
+        </div>
         <mat-radio-group class="flex flex-col gap-2 mb-4" formControlName="tipo">
-            <mat-radio-button value="mantenimiento" [disabled]="pendiente">
-                <strong>Mantenimiento / limpieza</strong>
-                <span class="text-secondary"> — solo abre el casillero</span>
-            </mat-radio-button>
-            <mat-radio-button value="intervencion" [disabled]="!pendiente">
+            @if (pendiente) {
+            <mat-radio-button value="intervencion">
                 <strong>Intervención (liberar)</strong>
                 <span class="text-secondary"> — da la entrega por cerrada, libera el casillero y anula el código del residente</span>
             </mat-radio-button>
+            } @else {
+            <mat-radio-button value="mantenimiento">
+                <strong>Mantenimiento / limpieza</strong>
+                <span class="text-secondary"> — solo abre el casillero</span>
+            </mat-radio-button>
+            }
         </mat-radio-group>
         @if (pendiente) {
         <p class="text-secondary mb-4">
